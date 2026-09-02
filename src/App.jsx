@@ -2697,6 +2697,7 @@ function LockScreen({ sessionUser, lockReason, onUnlock, onLogout, currentUserDe
 }
 
 function LoginScreen({ onLogin, error, demoAccounts, onGoToSignup }) {
+  const [showLogoClientModal, setShowLogoClientModal] = useState(false);
   const { lang, t } = useLanguage();
   const [identifiant, setIdentifiant] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
@@ -2851,17 +2852,7 @@ function SignupScreen({ onSubmit, onGoogleSignup, onBackToLogin, error, rules })
       <div className="w-full max-w-md my-auto">
         <div className="flex flex-col items-center text-center mb-6">
           
-        <div className="flex flex-col items-center group relative mb-3">
-          <img src={LOGO_LOGIN_URI} alt="Formation Hospitalière & Clinique" className="w-48 h-auto max-h-48 object-contain rounded-xl p-2 bg-white/5 border border-white/10 shadow-2xl mb-2 transition-transform duration-200 group-hover:scale-105" />
-          <button
-            type="button"
-            onClick={() => setShowLogoClientModal(true)}
-            title="Personnaliser le logo officiel de votre institution"
-            className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 border border-teal-500/30 text-[11px] font-medium transition-all shadow-sm"
-          >
-            <span>📷</span> <span>Personnaliser le logo du client</span>
-          </button>
-        </div>
+        <img src={LOGO_LOGIN_URI} alt="Formation Hospitalière & Clinique" className="w-48 h-auto max-h-48 object-contain rounded-xl p-2 bg-white/5 border border-white/10 shadow-2xl mb-4" />
           <h1 className="text-xl cx-textEAF2F4" style={{ fontFamily: "Rajdhani, sans-serif", fontWeight: 700 }}>Créer un compte</h1>
           <p className="cx-text13px cx-text8FA8B0 mt-1">Créez votre compte personnel pour déclarer un événement d'état civil, enregistrer votre agence de transport, et bien plus — accès immédiat, sans validation préalable.</p>
         </div>
