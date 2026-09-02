@@ -2857,7 +2857,8 @@ export default function SyndecCamApp({
                       <th className="py-3 px-4">ID Utilisateur</th>
                       <th className="py-3 px-4">Nom Complet</th>
                       <th className="py-3 px-4">Rôle / Profil</th>
-                      <th className="py-3 px-4">Téléphone & Email</th>
+                      <th className="py-3 px-4">Téléphone</th>
+                      <th className="py-3 px-4">Email</th>
                       <th className="py-3 px-4">Commune d'Attache</th>
                       <th className="py-3 px-4 text-center">Statut Compte</th>
                       <th className="py-3 px-4 text-center">Actions</th>
@@ -2882,7 +2883,8 @@ export default function SyndecCamApp({
                             {u.profil}
                           </span>
                         </td>
-                        <td className="py-3 px-4 font-mono text-gray-300">{u.contact} {u.email ? `• ${u.email}` : ""}</td>
+                        <td className="py-3 px-4 font-mono text-gray-300">{u.contact || "—"}</td>
+                        <td className="py-3 px-4 font-mono text-teal-300/90 lowercase">{u.email || "—"}</td>
                         <td className="py-3 px-4 text-gray-200">{u.commune}</td>
                         <td className="py-3 px-4 text-center">
                           <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/20 text-emerald-300">
