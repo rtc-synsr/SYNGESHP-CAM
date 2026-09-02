@@ -2891,109 +2891,28 @@ function SignupScreen({ onSubmit, onGoogleSignup, onBackToLogin, error, rules })
           </div>
 
           <form onSubmit={step === 3 ? submit : (e) => { e.preventDefault(); handleNextStep(); }} className="space-y-3">
-            {/* ÉTAPE 1 : CHOIX DU SECTEUR & RÔLE */}
+            {/* ÉTAPE 1 : HÔPITAL & RÔLE MÉDICAL */}
             {step === 1 && (
               <div className="space-y-3">
-                <Field label="Secteur d'activité / Espace">
-                  <select className={inputCls} value={typeCompte} onChange={(e) => setTypeCompte(e.target.value)}>
-                    <option value="Citoyen">Citoyen / Voyageur (SYNSR)</option>
-                    <option value="Syndec">Citoyen / Déclarant / OEC (SYNDEC-CAM)</option>
-                    <option value="Synrec">Citoyen / Chef de ménage (SYNREC-CAM)</option>
-                    <option value="Sante">Personnel de Santé (Hôpital / SYNGESHP-CAM)</option>
-                    <option value="Education">Personnel Éducatif Francophone (SYNGESE-CAM)</option>
-                    <option value="CamSms">Anglophone Education Staff (CAM-SMS)</option>
-                  </select>
-                </Field>
-
-                {typeCompte === "Syndec" && (
-                  <div className="p-3 bg-[#0D1F28] rounded-lg border border-teal-500/30 space-y-2">
-                    <Field label="Rôle / Titre à l'état civil *">
-                      <select className={inputCls} value={roleSyndec} onChange={(e) => setRoleSyndec(e.target.value)}>
-                        <option value="Citoyen">Citoyen / Déclarant</option>
-                        <option value="Maire">Maire de la commune</option>
-                        <option value="Adjoint au maire">Adjoint au maire</option>
-                        <option value="Officier d'état civil">Officier d'état civil (OEC)</option>
-                        <option value="Secrétaire d'état civil">Secrétaire d'état civil (SEC)</option>
-                      </select>
-                    </Field>
-                    <Field label="Commune de rattachement *">
-                      <select className={inputCls} value={communeSyndec} onChange={(e) => setCommuneSyndec(e.target.value)}>
-                        <option value="Yaoundé 1er">Commune de Yaoundé 1er (Centre)</option>
-                        <option value="Yaoundé 2e">Commune de Yaoundé 2e (Centre)</option>
-                        <option value="Douala 1er">Commune de Douala 1er (Littoral)</option>
-                        <option value="Douala 5e">Commune de Douala 5e (Littoral)</option>
-                        <option value="Bafoussam 1er">Commune de Bafoussam 1er (Ouest)</option>
-                        <option value="Bamenda 2e">Commune de Bamenda 2e (Nord-Ouest)</option>
-                        <option value="Garoua 1er">Commune de Garoua 1er (Nord)</option>
-                      </select>
-                    </Field>
-                  </div>
-                )}
-
-                {typeCompte === "Sante" && (
-                  <div className="p-3 bg-[#0D1F28] rounded-lg border border-teal-500/30 space-y-2">
-                    <Field label="Hôpital de rattachement *">
-                      <select className={inputCls} value={hopitalChoisi} onChange={(e) => setHopitalChoisi(e.target.value)}>
-                        <option value="hosp-1">Hôpital Général de Yaoundé (HGY)</option>
-                        <option value="hosp-2">Hôpital Gynéco-Obstétrique de Douala (HGOPED)</option>
-                        <option value="hosp-3">Hôpital Régional de Bafoussam (HRB)</option>
-                        <option value="hosp-4">Hôpital de District de Deido (HDD)</option>
-                      </select>
-                    </Field>
-                    <Field label="Profession / Rôle médical *">
-                      <select className={inputCls} value={professionSante} onChange={(e) => setProfessionSante(e.target.value)}>
-                        <option value="Médecin">Médecin / Praticien</option>
-                        <option value="Infirmier">Infirmier / Infirmière (IDE / SF)</option>
-                        <option value="Pharmacien">Pharmacien hospitalier</option>
-                        <option value="Caissier">Caissier / Facturation & CSU</option>
-                        <option value="Directeur">Directeur / Médecin-Chef</option>
-                      </select>
-                    </Field>
-                  </div>
-                )}
-
-                {typeCompte === "Education" && (
-                  <div className="p-3 bg-[#0D1F28] rounded-lg border border-teal-500/30 space-y-2">
-                    <Field label="Établissement scolaire *">
-                      <select className={inputCls} value={etablissementChoisi} onChange={(e) => setEtablissementChoisi(e.target.value)}>
-                        <option value="Lycée Général Leclerc">Lycée Général Leclerc (Yaoundé)</option>
-                        <option value="École Publique de Bastos">École Publique de Bastos (Primaire)</option>
-                        <option value="Collège Vogt">Collège Vogt (Yaoundé)</option>
-                        <option value="Lycée Bilingue d'Essos">Lycée Bilingue d'Essos</option>
-                      </select>
-                    </Field>
-                    <Field label="Poste / Rôle pédagogique *">
-                      <select className={inputCls} value={roleEducation} onChange={(e) => setRoleEducation(e.target.value)}>
-                        <option value="Enseignant">Enseignant / Professeur</option>
-                        <option value="Directeur / Proviseur">Directeur / Proviseur</option>
-                        <option value="Économe / Comptable">Économe / Comptable</option>
-                        <option value="Parent d'élève">Parent d'élève</option>
-                      </select>
-                    </Field>
-                  </div>
-                )}
-
-                {typeCompte === "CamSms" && (
-                  <div className="p-3 bg-[#0D1F28] rounded-lg border border-teal-500/30 space-y-2">
-                    <Field label="School / College *">
-                      <select className={inputCls} value={schoolChoisie} onChange={(e) => setSchoolChoisie(e.target.value)}>
-                        <option value="GBHS Bamenda">GBHS Bamenda (Government Bilingual High School)</option>
-                        <option value="Sacred Heart College Mankon">Sacred Heart College Mankon</option>
-                        <option value="St. Joseph's College Sasse">St. Joseph's College Sasse</option>
-                        <option value="GBHS Buea">GBHS Buea</option>
-                      </select>
-                    </Field>
-                    <Field label="Role / Designation *">
-                      <select className={inputCls} value={roleCamSms} onChange={(e) => setRoleCamSms(e.target.value)}>
-                        <option value="Teacher">Teacher / Instructor</option>
-                        <option value="Principal / Headmaster">Principal / Headmaster</option>
-                        <option value="Bursar">Bursar / Cashier</option>
-                        <option value="Parent / Guardian">Parent / Guardian</option>
-                      </select>
-                    </Field>
-                  </div>
-                )}
-
+                <div className="p-3 bg-[#0D1F28] rounded-lg border border-teal-500/30 space-y-2">
+                  <Field label="Hôpital de rattachement *">
+                    <select className={inputCls} value={hopitalChoisi} onChange={(e) => setHopitalChoisi(e.target.value)}>
+                      <option value="hosp-1">Hôpital Général de Yaoundé (HGY)</option>
+                      <option value="hosp-2">Hôpital Gynéco-Obstétrique de Douala (HGOPED)</option>
+                      <option value="hosp-3">Hôpital Régional de Bafoussam (HRB)</option>
+                      <option value="hosp-4">Hôpital de District de Deido (HDD)</option>
+                    </select>
+                  </Field>
+                  <Field label="Profession / Rôle médical *">
+                    <select className={inputCls} value={professionSante} onChange={(e) => setProfessionSante(e.target.value)}>
+                      <option value="Médecin">Médecin / Praticien</option>
+                      <option value="Infirmier">Infirmier / Infirmière (IDE / SF)</option>
+                      <option value="Pharmacien">Pharmacien hospitalier</option>
+                      <option value="Caissier">Caissier / Facturation & CSU</option>
+                      <option value="Directeur">Directeur / Médecin-Chef</option>
+                    </select>
+                  </Field>
+                </div>
                 <Button type="button" onClick={handleNextStep} full>Continuer vers l'identité ►</Button>
               </div>
             )}
@@ -10472,10 +10391,10 @@ function PersonnaliserLogoClientModal({ isOpen, onClose, onSave }) {
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
       <div className="bg-[#121E27] border border-teal-500/40 rounded-2xl p-6 max-w-md w-full shadow-2xl text-white">
         <h3 className="text-lg font-bold mb-1 flex items-center gap-2 text-teal-300">
-          🏛️ Personnaliser le Logo Client
+          🏥 Personnaliser le Logo Hospitalier
         </h3>
         <p className="text-xs text-gray-400 mb-4">
-          Téléversez le logo officiel de votre structure pour remplacer l'emblème par défaut.
+          Téléversez le logo officiel de votre hôpital, clinique ou centre médical.
         </p>
 
         <div className="flex flex-col items-center justify-center p-4 bg-[#0A1218] border border-white/10 rounded-xl mb-4">
