@@ -2741,7 +2741,7 @@ function LoginScreen({ onLogin, error, demoAccounts, onGoToSignup }) {
 
         <form onSubmit={submit} className="cx-bg102530 border border-white/10 rounded-xl p-5 space-y-3 shadow-xl">
           <Field label={t("identifier", "Identifiant (email ou téléphone)")}>
-            <input required autoFocus className={inputCls} value={identifiant} onChange={(e) => setIdentifiant(e.target.value)} placeholder="ex. admin@rtc.cm ou admin" />
+            <input required autoFocus className={inputCls} value={identifiant} onChange={(e) => setIdentifiant(e.target.value)} placeholder="ex. medecin@hopital.cm ou direction" />
           </Field>
           <Field label={t("password", "Mot de passe")}>
             <input required type="password" className={inputCls} value={motDePasse} onChange={(e) => setMotDePasse(e.target.value)} placeholder="••••••••" />
@@ -2778,7 +2778,7 @@ function LoginScreen({ onLogin, error, demoAccounts, onGoToSignup }) {
           </div>
           <p className="cx-text11px cx-text5C7680 mt-2">
             Mode démonstration : un seul compte est préchargé, l'<span className="cx-text5FC2D6">Administrateur système</span> (mot de passe temporaire <span className="font-mono cx-text5FC2D6">Admin</span>, changement obligatoire à la première connexion).
-            Lui seul peut créer les autres comptes (agences, MINT, DGSN/Gendarmerie, MINDEF, voyageurs, RH, analystes…) depuis le module Utilisateurs ; chacun reçoit alors un mot de passe temporaire personnel et n'accède qu'aux modules autorisés pour son profil. Un compte suspendu ne peut pas se connecter.
+            Lui seul peut créer les autres comptes (directeurs d'hôpital, médecins-chefs, chirurgiens, infirmiers, pharmaciens, caissiers CSU, patients…) depuis le module Utilisateurs ; chacun reçoit alors un mot de passe temporaire personnel et n'accède qu'aux modules autorisés pour son profil. Un compte suspendu ne peut pas se connecter.
           </p>
         </div>
         )}
@@ -2791,7 +2791,7 @@ function SignupScreen({ onSubmit, onGoogleSignup, onBackToLogin, error, rules })
   const [step, setStep] = useState(1); // 1: Secteur & Activité | 2: Identité & Contact | 3: Sécurité
   const [nom, setNom] = useState("");
   const [contact, setContact] = useState("");
-  const [typeCompte, setTypeCompte] = useState("Citoyen"); // "Citoyen" | "Syndec" | "Sante" | "Education" | "CamSms"
+  const [typeCompte, setTypeCompte] = useState("Sante"); // "Citoyen" | "Syndec" | "Sante" | "Education" | "CamSms"
   const [roleSyndec, setRoleSyndec] = useState("Citoyen");
   const [communeSyndec, setCommuneSyndec] = useState("Yaoundé 1er");
   const [hopitalChoisi, setHopitalChoisi] = useState("hosp-1");
@@ -2854,7 +2854,7 @@ function SignupScreen({ onSubmit, onGoogleSignup, onBackToLogin, error, rules })
           
         <img src={LOGO_LOGIN_URI} alt="Formation Hospitalière & Clinique" className="w-48 h-auto max-h-48 object-contain rounded-xl p-2 bg-white/5 border border-white/10 shadow-2xl mb-4" />
           <h1 className="text-xl cx-textEAF2F4" style={{ fontFamily: "Rajdhani, sans-serif", fontWeight: 700 }}>Créer un compte</h1>
-          <p className="cx-text13px cx-text8FA8B0 mt-1">Créez votre compte personnel pour déclarer un événement d'état civil, enregistrer votre agence de transport, et bien plus — accès immédiat, sans validation préalable.</p>
+          <p className="cx-text13px cx-text8FA8B0 mt-1">Créez votre compte pour accéder aux services hospitaliers et au suivi des soins médicaux.</p>
         </div>
 
         <div className="cx-bg102530 border border-white/10 rounded-xl p-5 space-y-3">
@@ -10487,11 +10487,11 @@ function PersonnaliserLogoClientModal({ isOpen, onClose, onSave }) {
         </div>
 
         <div className="mb-4">
-          <label className="block text-xs font-medium text-gray-300 mb-1">Nom officiel de votre structure (Optionnel) :</label>
+          <label className="block text-xs font-medium text-gray-300 mb-1">Nom officiel de la formation hospitalière (Optionnel) :</label>
           <input
             type="text"
             className="w-full px-3 py-2 rounded-lg bg-[#0D1821] border border-white/10 text-xs text-white focus:border-teal-400 focus:outline-none"
-            placeholder="Ex: Lycée Bilingue de Yaoundé / Mairie de Douala..."
+            placeholder="Ex: Hôpital Général de Yaoundé, Hôpital Laquintinie de Douala, Hôpital de District..."
             value={instNom}
             onChange={(e) => setInstNom(e.target.value)}
           />
