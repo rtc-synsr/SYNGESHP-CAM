@@ -10913,7 +10913,7 @@ export default function SSRNPlatform() {
     if (!session) return;
     if (!compteConnecteSynsr || compteConnecteSynsr.statut !== "Actif") {
       setSession(null);
-      setSystem("ssrn");
+      setSystem("syngeshp");
     setTab("dashboard");
       setLoginError("Votre session a été fermée : votre compte n'est plus actif.");
     }
@@ -10967,7 +10967,7 @@ export default function SSRNPlatform() {
     // Pour un compte Personnel RTC (profil = "RTC"), le palier réel dépend du rôle précis
     // (voir ROLE_TO_TIER) et non du profil générique lui-même — sinon repli sur PROFIL_TO_TIER.
     setSession({ userId: user.id, nom: user.nom, profil: user.profil });
-    setSystem("ssrn");
+    setSystem("syngeshp");
     setTab("dashboard");
     setIsLocked(false);
     setLockReason(null);
@@ -11009,7 +11009,7 @@ export default function SSRNPlatform() {
     setUtilisateurs((u) => [...u, nouveauCompte]);
     setAuditLog((l) => [{ id: genId("LOG"), time: nowStamp(), acteur: nom.trim(), action: viaGoogle ? "Auto-inscription via Google" : "Auto-inscription", detail: newId }, ...l]);
     setSession({ userId: newId, nom: nom.trim(), profil: profilActif });
-    setSystem("ssrn");
+    setSystem("syngeshp");
     setTab("dashboard");
     setIsLocked(false);
     setLockReason(null);
@@ -11041,7 +11041,7 @@ export default function SSRNPlatform() {
     setUtilisateurs((u) => u.map((x) => (x.id === target.userId ? { ...x, motDePasse: newPassword, mustChangePassword: false } : x)));
     logAction("Changement de mot de passe (première connexion)", target.userId);
     setSession({ userId: target.userId, nom: target.nom, profil: target.profil });
-    setSystem("ssrn");
+    setSystem("syngeshp");
     setTab("dashboard");
     setIsLocked(false);
     setLockReason(null);
@@ -11129,7 +11129,7 @@ export default function SSRNPlatform() {
     setPasswordChangeError("");
     setLoginError("");
     setTab("dashboard");
-    setSystem("ssrn");
+    setSystem("syngeshp");
   };
 
   const { lang, t } = useLanguage();
@@ -12093,30 +12093,9 @@ export default function SSRNPlatform() {
     );
   }
 
-  if (system === "portal") {
-    return (
-      <>
-        <ModulesPortal
-          adminNom={session.nom}
-          accessibleModules={TIER_MODULES[role] || []}
-          sessionRole={role}
-          synrecActif={synrecActif}
-          syndecActif={syndecActif}
-          syngeseActif={syngeseActif}
-          camSmsActif={camSmsActif}
-          syngeshpActif={syngeshpActif}
-          onEnter={(key) => setSystem(key === "synsr" ? "ssrn" : key)}
-          onLogout={logout}
-          onLock={() => lockSession("manual")}
-        />
-        <AiAssistant
-          currentModule="Portail National RTC"
-          currentTab="accueil"
-          onNavigate={(mod) => setSystem(mod === "synsr" ? "ssrn" : mod)}
-          contextData={{ role, adminNom: session?.nom }}
-        />
-      </>
-    );
+  if (system === "portal" || system === "ssrn") {
+    setSystem("syngeshp");
+    return null;
   }
 
   if (system === "synrec") {
@@ -12202,7 +12181,7 @@ export default function SSRNPlatform() {
       <>
         <Suspense fallback={<ModuleLoadingFallback />}>
           <SyngespCamApp
-            onExit={() => setSystem("portal")}
+            onExit={() => setTab("dashboard")}
             adminNom={session.nom}
             syngespActif={syngeshpActif}
             sessionRole={role}
