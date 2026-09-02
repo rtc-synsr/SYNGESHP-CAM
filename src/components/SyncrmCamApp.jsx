@@ -1145,8 +1145,20 @@ export default function SyncrmCamApp({
   // CONTRÔLE D'ACCÈS
   // --------------------------------------------------------------------------
   if (!estPersonnelRTC) {
-    return (
-      <div className="w-full min-h-screen bg-[#0B131B] text-[#EAF2F4] flex flex-col items-center justify-center p-6 font-sans">
+    
+  useEffect(() => {
+    const handleOpenDb = () => setSupabaseModalOpen(true);
+    const handleTriggerSync = () => { if (typeof handleSyncSupabase === "function") handleSyncSupabase(); };
+    window.addEventListener("rtc_open_db_modal", handleOpenDb);
+    window.addEventListener("rtc_trigger_sync", handleTriggerSync);
+    return () => {
+      window.removeEventListener("rtc_open_db_modal", handleOpenDb);
+      window.removeEventListener("rtc_trigger_sync", handleTriggerSync);
+    };
+  }, []);
+
+  return (
+    <div className="w-full min-h-screen bg-[#0B131B] text-[#EAF2F4] flex flex-col items-center justify-center p-6 font-sans">
         <div className="max-w-md w-full bg-[#13212D] border border-red-500/30 rounded-2xl p-8 text-center shadow-2xl space-y-5">
           <div className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto text-red-400">
             <ShieldAlert size={32} />
@@ -1302,26 +1314,7 @@ export default function SyncrmCamApp({
 
         {/* Actions Supabase & Sortie */}
         <div className="flex items-center gap-2 shrink-0">
-          <button
-            onClick={() => setSupabaseModalOpen(true)}
-            title="Connexion Base de données / Supabase"
-            className={`flex items-center gap-1 px-2.5 py-1 rounded text-xs transition-all ${
-              supabaseStatus.connected ? "bg-emerald-500/20 text-emerald-300 border border-emerald-400/40" : "bg-white/10 text-white hover:bg-white/20"
-            }`}
-          >
-            <Database size={13} />
-            <span className="font-mono text-[11px] hidden md:inline">{supabaseStatus.connected ? "DB OK" : "DB Local"}</span>
-          </button>
-
-          <button
-            onClick={handleSyncSupabase}
-            disabled={syncLoading}
-            className="flex items-center gap-1 px-2.5 py-1 rounded text-xs bg-white/10 hover:bg-white/20 text-white transition-all"
-            title="Synchroniser les données"
-          >
-            <RefreshCw size={12} className={syncLoading ? "animate-spin text-teal-300" : ""} />
-            <span className="hidden sm:inline">Sync</span>
-          </button>
+          
 
           <button
             onClick={onExit}

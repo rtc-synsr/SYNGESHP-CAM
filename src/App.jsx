@@ -13,7 +13,7 @@ import {
   LayoutDashboard, LayoutGrid, Building2, Users, Car, TriangleAlert, Siren, Search,
   Plus, ShieldCheck, Radio, X, Check, ChevronRight, Activity, TrendingUp,
   FileWarning, Route, UsersRound, Bell, Navigation, Settings,
-  Ban, UserPlus, Trash2, Power, Send, LogOut, Info, KeyRound, Database, Plug, Copy,
+  Ban, UserPlus, Trash2, Power, Send, LogOut, Info, KeyRound, Database, RefreshCw, Plug, Copy,
   LifeBuoy, AlertOctagon, PhoneCall, MapPinned, Clock, ShieldAlert, Download, Pencil,
   GraduationCap, BookOpen, ClipboardList, Wallet, School,
   FileCheck2, FileText, CalendarDays, CalendarClock, HeartPulse, ArrowRight,
@@ -10913,8 +10913,8 @@ export default function SSRNPlatform() {
     if (!session) return;
     if (!compteConnecteSynsr || compteConnecteSynsr.statut !== "Actif") {
       setSession(null);
-      setSystem("portal");
-      setTab("dashboard");
+      setSystem("ssrn");
+    setTab("dashboard");
       setLoginError("Votre session a été fermée : votre compte n'est plus actif.");
     }
   }, [session, compteConnecteSynsr]);
@@ -10967,6 +10967,8 @@ export default function SSRNPlatform() {
     // Pour un compte Personnel RTC (profil = "RTC"), le palier réel dépend du rôle précis
     // (voir ROLE_TO_TIER) et non du profil générique lui-même — sinon repli sur PROFIL_TO_TIER.
     setSession({ userId: user.id, nom: user.nom, profil: user.profil });
+    setSystem("ssrn");
+    setTab("dashboard");
     setIsLocked(false);
     setLockReason(null);
     setLastActivityTime(Date.now());
@@ -11007,6 +11009,8 @@ export default function SSRNPlatform() {
     setUtilisateurs((u) => [...u, nouveauCompte]);
     setAuditLog((l) => [{ id: genId("LOG"), time: nowStamp(), acteur: nom.trim(), action: viaGoogle ? "Auto-inscription via Google" : "Auto-inscription", detail: newId }, ...l]);
     setSession({ userId: newId, nom: nom.trim(), profil: profilActif });
+    setSystem("ssrn");
+    setTab("dashboard");
     setIsLocked(false);
     setLockReason(null);
     setLastActivityTime(Date.now());
@@ -11037,6 +11041,8 @@ export default function SSRNPlatform() {
     setUtilisateurs((u) => u.map((x) => (x.id === target.userId ? { ...x, motDePasse: newPassword, mustChangePassword: false } : x)));
     logAction("Changement de mot de passe (première connexion)", target.userId);
     setSession({ userId: target.userId, nom: target.nom, profil: target.profil });
+    setSystem("ssrn");
+    setTab("dashboard");
     setIsLocked(false);
     setLockReason(null);
     setLastActivityTime(Date.now());
@@ -11123,7 +11129,7 @@ export default function SSRNPlatform() {
     setPasswordChangeError("");
     setLoginError("");
     setTab("dashboard");
-    setSystem("portal");
+    setSystem("ssrn");
   };
 
   const { lang, t } = useLanguage();
@@ -11173,6 +11179,8 @@ export default function SSRNPlatform() {
       title: lang === "en" ? "Administration" : "Administration",
       items: [
         { id: "crm", label: "CRM & RH", icon: LayoutGrid, only: ["admin", "rh"] },
+        { id: "db_local", label: "Base de données (DB Local)", icon: Database, isAction: true },
+        { id: "sync_data", label: "Synchronisation (Sync)", icon: RefreshCw, isAction: true },
         { id: "utilisateurs", label: t("nav_users", "Utilisateurs"), icon: UsersRound, only: ["admin"] },
         { id: "administration", label: t("nav_audit", "Administration SYNSR"), icon: Settings, only: ["admin", "rh", "dgsn"] },
         { id: "verrouiller", label: lang === "en" ? "Lock Session" : "Verrouiller", icon: Lock, isAction: true },
@@ -12246,13 +12254,7 @@ export default function SSRNPlatform() {
               <div className="cx-text15px font-semibold tracking-tight" style={{ fontFamily: "Rajdhani, sans-serif" }}>RTC</div>
             </div>
           </div>
-          <button
-            onClick={() => setSystem("portal")}
-            title="Retourner au portail RTC pour choisir un autre module"
-            className="mt-3 w-full flex items-center gap-2 px-3 py-2 rounded-md cx-text12px cx-bg0D1F28 border border-white/10 cx-text8FA8B0 hover:bg-white/5 transition-colors"
-          >
-            <LayoutDashboard size={14} /> Portail RTC
-          </button>
+          
         </div>
 
         <nav className="flex-1 py-3 px-2 space-y-4 overflow-y-auto">
@@ -12277,6 +12279,42 @@ export default function SSRNPlatform() {
                           className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md cx-text13px transition-colors text-amber-300 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/25 font-medium"
                         >
                           <Icon size={16} className="text-amber-400" />
+                          <span>{n.label}</span>
+                        </button>
+                      );
+                    }
+                    if (n.id === "db_local") {
+                      return (
+                        <button
+                          key={n.id}
+                          type="button"
+                          onClick={() => {
+                            if (tab !== "crm") setTab("crm");
+                            setTimeout(() => window.dispatchEvent(new CustomEvent("rtc_open_db_modal")), 100);
+                            setMobileNavOpen(false);
+                          }}
+                          title="Connexion Base de données / Supabase"
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md cx-text13px transition-colors text-teal-300 hover:bg-teal-500/10 border border-transparent hover:border-teal-500/25 font-medium"
+                        >
+                          <Icon size={16} className="text-teal-400" />
+                          <span>{n.label}</span>
+                        </button>
+                      );
+                    }
+                    if (n.id === "sync_data") {
+                      return (
+                        <button
+                          key={n.id}
+                          type="button"
+                          onClick={() => {
+                            if (tab !== "crm") setTab("crm");
+                            setTimeout(() => window.dispatchEvent(new CustomEvent("rtc_trigger_sync")), 100);
+                            setMobileNavOpen(false);
+                          }}
+                          title="Synchroniser les données"
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md cx-text13px transition-colors text-cyan-300 hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/25 font-medium"
+                        >
+                          <Icon size={16} className="text-cyan-400" />
                           <span>{n.label}</span>
                         </button>
                       );
