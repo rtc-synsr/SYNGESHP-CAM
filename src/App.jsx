@@ -11172,13 +11172,12 @@ export default function SSRNPlatform() {
       title: lang === "en" ? "HR & CRM Management" : "Pilotage RH & CRM",
       items: [
         { id: "pilotageRH", label: t("nav_internal_staff", "Personnel du RTC"), icon: UsersRound, only: ["admin", "rh"] },
-        { id: "crm", label: t("nav_crm", "Module CRM & RH"), icon: LayoutGrid, only: ["admin", "rh"] },
+        { id: "crm", label: t("nav_crm", "CRM & RH"), icon: LayoutGrid, only: ["admin", "rh"] },
       ],
     },
     {
       title: lang === "en" ? "Administration" : "Administration",
       items: [
-        { id: "crm", label: "CRM & RH", icon: LayoutGrid, only: ["admin", "rh"] },
         { id: "db_local", label: "Base de données (DB Local)", icon: Database, isAction: true },
         { id: "sync_data", label: "Synchronisation (Sync)", icon: RefreshCw, isAction: true },
         { id: "utilisateurs", label: t("nav_users", "Utilisateurs"), icon: UsersRound, only: ["admin"] },
@@ -12389,7 +12388,7 @@ export default function SSRNPlatform() {
                 {tab === "evenements" && (lang === "en" ? "Events & Calendar" : "Événements & Agenda")}
                 {tab === "chat" && (lang === "en" ? "Team Chat & Channels" : "Chat & Discussions")}
                 {tab === "pilotageRH" && (lang === "en" ? "RTC Staff" : "Personnel du RTC")}
-                {tab === "crm" && (lang === "en" ? "CRM & RH Management" : "Module CRM & RH")}
+                {tab === "crm" && (lang === "en" ? "CRM & RH Management" : "CRM & RH")}
                 {tab === "utilisateurs" && (lang === "en" ? "User Accounts" : "Utilisateurs")}
                 {tab === "administration" && (lang === "en" ? "SYNSR Administration" : "Administration SYNSR")}
                 {tab === "apropos" && (lang === "en" ? "About SYNSR" : "À propos")}
