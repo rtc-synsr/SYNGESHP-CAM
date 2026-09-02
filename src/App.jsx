@@ -2921,7 +2921,7 @@ function SignupScreen({ onSubmit, onGoogleSignup, onBackToLogin, error, rules })
             {step === 2 && (
               <div className="space-y-3">
                 <Field label="Nom complet *">
-                  <input required autoFocus className={inputCls} value={nom} onChange={(e) => setNom(e.target.value)} placeholder="ex. Dr. Suzanne Ateba / M. Paul Nkoa" />
+                  <input required autoFocus className={inputCls} value={nom} onChange={(e) => setNom(e.target.value)} placeholder="ex. Dr. Suzanne Ateba / Dr. Jean Pierre Talla (Médecin / Soignant)" />
                 </Field>
                 <Field label="E-mail ou téléphone de connexion *">
                   <input required className={inputCls} value={contact} onChange={(e) => setContact(e.target.value)} placeholder="ex. suzanne.ateba@minsante.cm ou 6XXXXXXXX" />
