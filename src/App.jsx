@@ -2490,15 +2490,7 @@ function SaasOnboardingBanner({ moduleName, roleName, steps = [], onDismiss }) {
       <div className="absolute top-0 right-0 w-48 h-48 bg-[#1E8FA6]/10 rounded-full blur-2xl pointer-events-none" />
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 relative z-10">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-[#1E8FA6]/30 text-[#5FC2D6] rounded border border-[#1E8FA6]/40">
-              Guide SaaS Interactif
-            </span>
-            <span className="text-xs text-[#8FA8B0]">Espace {moduleName}</span>
-          </div>
-          <h2 className="text-base font-bold text-[#EAF2F4] mt-1" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-            Bienvenue sur votre tableau de bord {roleName ? `(${roleName})` : ""} !
-          </h2>
+          
           <p className="text-xs text-[#8FA8B0] mt-0.5">
             Pour tirer le meilleur parti de votre session, découvrez les actions clés à votre disposition :
           </p>
@@ -11180,8 +11172,10 @@ export default function SSRNPlatform() {
     {
       title: lang === "en" ? "Administration" : "Administration",
       items: [
+        { id: "crm", label: "CRM & RH", icon: LayoutGrid, only: ["admin", "rh"] },
         { id: "utilisateurs", label: t("nav_users", "Utilisateurs"), icon: UsersRound, only: ["admin"] },
         { id: "administration", label: t("nav_audit", "Administration SYNSR"), icon: Settings, only: ["admin", "rh", "dgsn"] },
+        { id: "verrouiller", label: lang === "en" ? "Lock Session" : "Verrouiller", icon: Lock, isAction: true },
       ],
     },
   ], [lang, t]);
@@ -12273,6 +12267,20 @@ export default function SSRNPlatform() {
                 <div className="space-y-0.5">
                   {visible.map((n) => {
                     const Icon = n.icon; const active = tab === n.id;
+                    if (n.id === "verrouiller") {
+                      return (
+                        <button
+                          key={n.id}
+                          type="button"
+                          onClick={() => { lockSession("manual"); setMobileNavOpen(false); }}
+                          title={lang === "en" ? "Lock session (Security)" : "Verrouiller la session (Sécurité)"}
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md cx-text13px transition-colors text-amber-300 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/25 font-medium"
+                        >
+                          <Icon size={16} className="text-amber-400" />
+                          <span>{n.label}</span>
+                        </button>
+                      );
+                    }
                     return (
                       <button key={n.id} onClick={() => { setTab(n.id); setMobileNavOpen(false); }} className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md cx-text13px transition-colors ${active ? "cx-bg1E8FA615 cx-text5FC2D6 border cx-border1E8FA630" : "cx-text8FA8B0 hover:bg-white/5 cx-hovertextEAF2F4 border border-transparent"}`}>
                         <Icon size={16} />{n.label}{active && <ChevronRight size={14} className="ml-auto" />}
@@ -12351,26 +12359,7 @@ export default function SSRNPlatform() {
             </div>
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
-            {(role === "admin" || role === "rh") && (
-              <button
-                type="button"
-                onClick={() => setTab("crm")}
-                title="Ouvrir le module CRM & RH"
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded bg-[#714B67]/30 hover:bg-[#714B67]/50 border border-[#714B67] text-purple-200 text-xs font-semibold transition-all shadow"
-              >
-                <LayoutGrid size={13} className="text-[#00A09D]" />
-                <span>CRM & RH</span>
-              </button>
-            )}
-            <button
-              type="button"
-              onClick={() => lockSession("manual")}
-              title={lang === "en" ? "Lock session (Security)" : "Verrouiller la session (Sécurité)"}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-medium transition-all shadow"
-            >
-              <Lock size={13} />
-              <span className="hidden sm:inline">{lang === "en" ? "Lock" : "Verrouiller"}</span>
-            </button>
+            
             <LanguageSwitcher />
             <div className="hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-[11px]">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
