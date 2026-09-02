@@ -1511,9 +1511,7 @@ export default function SyngespCamApp({
                   {activeTab === "administration" && (lang === "en" ? "SYNGESHP Administration" : "Administration SYNGESHP")}
                 </span>
               </h1>
-              <span className="hidden md:inline px-2 py-0.5 text-[9px] font-bold bg-[#714B67]/30 text-[#D7A9C9] border border-[#714B67]/50 rounded">
-                MINSANTE CAMEROUN
-              </span>
+              
             </div>
             <p className="text-[11px] text-[#8FA8B0]">
               {lang === "en"
