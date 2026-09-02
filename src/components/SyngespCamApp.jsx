@@ -1449,9 +1449,7 @@ export default function SyngespCamApp({
         <p className="text-sm text-[#8FA8B0] max-w-md">
           Ce module a été temporairement désactivé par l'Administrateur système RTC. Veuillez réessayer plus tard ou contacter votre référent.
         </p>
-        <button onClick={onExit} className="px-4 py-2 rounded-lg border border-white/10 text-sm text-[#8FA8B0] hover:bg-white/5 transition-colors flex items-center gap-2">
-          <LogOut size={14} className="rotate-180" /> Retour au portail RTC
-        </button>
+        
       </div>
     );
   }
@@ -1483,7 +1481,7 @@ export default function SyngespCamApp({
           <button
             type="button"
             onClick={onExit}
-            title={lang === "en" ? "Back to RTC Applications" : "Retour aux Applications RTC"}
+            title="Tableau de bord"
             className="w-9 h-9 rounded-lg bg-[#714B67] hover:bg-[#86597a] flex items-center justify-center text-white transition-all shadow active:scale-95 shrink-0"
           >
             <LayoutGrid size={18} />
@@ -1778,14 +1776,7 @@ export default function SyngespCamApp({
               <div className="font-semibold text-white truncate">{adminNom}</div>
               <div className="text-[10px] text-emerald-400 font-mono mt-0.5">MINSANTE Cameroun</div>
             </div>
-            <button
-              type="button"
-              onClick={onExit}
-              className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs bg-white/5 hover:bg-white/10 text-white font-medium border border-white/10 transition-colors"
-            >
-              <LogOut size={13} className="rotate-180 text-[#5FC2D6]" />
-              <span>Retour au portail RTC</span>
-            </button>
+            
           </div>
         </aside>
 
@@ -3151,15 +3142,6 @@ export default function SyngespCamApp({
                       >
                         <RefreshCw size={15} className={syncLoading ? "animate-spin" : ""} />
                         <span>Synchroniser la Base Cloud</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={onExit}
-                        className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-white border border-white/10 font-semibold text-xs transition-all"
-                      >
-                        <LogOut size={15} className="rotate-180" />
-                        <span>Retour au Portail RTC</span>
                       </button>
                     </div>
                   </div>

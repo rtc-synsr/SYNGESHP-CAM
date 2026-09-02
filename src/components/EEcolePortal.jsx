@@ -741,9 +741,7 @@ export default function EEcolePortal({
         <p className="text-sm text-gray-400 mt-1 max-w-md">
           Aucun dossier élève rattaché à votre compte pour le moment. Veuillez contacter la direction de l'établissement avec votre matricule.
         </p>
-        <button onClick={onExit} className="mt-6 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-sm font-semibold">
-          Retour au Portail National RTC
-        </button>
+        
       </div>
     );
   }
@@ -805,10 +803,10 @@ export default function EEcolePortal({
               <button
                 onClick={onExit}
                 className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-colors flex items-center gap-1 border border-white/10"
-                title="Quitter eÉcole et retourner à la plateforme"
+                title="Retourner au tableau de bord"
               >
                 <ArrowLeft size={14} />
-                <span className="hidden md:inline">Retour RTC</span>
+                <span className="hidden md:inline">{isAnglophone ? "Back" : "Retour"}</span>
               </button>
             </div>
           </div>

@@ -3470,7 +3470,6 @@ function SynrecCamApp({ onExit, adminNom, synrecActif, synrecPeriode, sessionRol
             <div className="cx-text13px cx-textEAF2F4 font-medium truncate">{adminNom}</div>
             <div className="cx-text11px cx-text5FC2D6 font-mono">Administrateur national</div>
           </div>
-          <Button variant="ghost" full onClick={onExit}><LogOut size={14} className="rotate-180" /> Retour à la plateforme RTC</Button>
         </div>
       </aside>
 
@@ -3484,7 +3483,7 @@ function SynrecCamApp({ onExit, adminNom, synrecActif, synrecPeriode, sessionRol
             <button
               type="button"
               onClick={onExit}
-              title={lang === "en" ? "Back to RTC Applications" : "Retour aux Applications RTC"}
+              title="Tableau de bord"
               className="w-8 h-8 rounded-lg bg-[#714B67] hover:bg-[#86597a] flex items-center justify-center text-white transition-all shadow active:scale-95 shrink-0"
             >
               <LayoutGrid size={16} />
@@ -5525,7 +5524,6 @@ function SyngeseCamApp({ onExit, adminNom, syngeseActif, sessionRole, sessionUse
         <GraduationCap size={40} className="cx-text5FC2D6" />
         <div className="cx-text15px font-semibold">SYNGESE-CAM est actuellement indisponible</div>
         <p className="cx-text13px cx-text8FA8B0 max-w-md">Ce module a été temporairement désactivé par l'Administrateur système RTC. Veuillez réessayer plus tard ou contacter votre référent.</p>
-        <Button variant="ghost" onClick={onExit}><LogOut size={14} className="rotate-180" /> Retour au portail RTC</Button>
       </div>
     );
   }
@@ -5558,7 +5556,6 @@ function SyngeseCamApp({ onExit, adminNom, syngeseActif, sessionRole, sessionUse
             </button>
           ))}
         </div>
-        <Button variant="ghost" onClick={onExit}><LogOut size={14} className="rotate-180" /> Retour au portail RTC</Button>
       </div>
     );
   }
@@ -5597,7 +5594,6 @@ function SyngeseCamApp({ onExit, adminNom, syngeseActif, sessionRole, sessionUse
             </div>
           ))}
         </nav>
-        <Button variant="ghost" full onClick={onExit}><LogOut size={14} className="rotate-180" /> Retour au portail RTC</Button>
       </aside>
 
       <main className="flex-1 overflow-y-auto flex flex-col">
@@ -5607,7 +5603,7 @@ function SyngeseCamApp({ onExit, adminNom, syngeseActif, sessionRole, sessionUse
             <button
               type="button"
               onClick={onExit}
-              title={lang === "en" ? "Back to RTC Applications" : "Retour aux Applications RTC"}
+              title="Tableau de bord"
               className="w-8 h-8 rounded-lg bg-[#714B67] hover:bg-[#86597a] flex items-center justify-center text-white transition-all shadow active:scale-95 shrink-0"
             >
               <LayoutGrid size={16} />
@@ -7588,7 +7584,6 @@ function CamSmsApp({ onExit, adminNom, camSmsActif, sessionRole, sessionUserId, 
         <GraduationCap size={40} className="cx-text5FC2D6" />
         <div className="cx-text15px font-semibold">CAM-SMS is currently unavailable</div>
         <p className="cx-text13px cx-text8FA8B0 max-w-md">This module has been temporarily deactivated by the RTC system Administrator. Please try again later or contact your RTC representative.</p>
-        <Button variant="ghost" onClick={onExit}><LogOut size={14} className="rotate-180" /> Back to RTC portal</Button>
       </div>
     );
   }
@@ -7620,7 +7615,6 @@ function CamSmsApp({ onExit, adminNom, camSmsActif, sessionRole, sessionUserId, 
             <span className="cx-text11px cx-text5C7680 text-center">Forms 1–5, Lower &amp; Upper Sixth</span>
           </button>
         </div>
-        <Button variant="ghost" onClick={onExit}>← Back to RTC portal</Button>
       </div>
     );
   }
@@ -8129,7 +8123,6 @@ function CamSmsApp({ onExit, adminNom, camSmsActif, sessionRole, sessionUserId, 
               })}
             </div>
           ))}
-          <button onClick={onExit} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md cx-text13px cx-text8FA8B0 hover:bg-white/5 transition-colors mt-4"><LogOut size={15} /> Back to RTC portal</button>
         </nav>
       </aside>
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -8140,7 +8133,7 @@ function CamSmsApp({ onExit, adminNom, camSmsActif, sessionRole, sessionUserId, 
             <button
               type="button"
               onClick={onExit}
-              title={lang === "en" ? "Back to RTC Applications" : "Retour aux Applications RTC"}
+              title="Tableau de bord"
               className="w-8 h-8 rounded-lg bg-[#714B67] hover:bg-[#86597a] flex items-center justify-center text-white transition-all shadow active:scale-95 shrink-0"
             >
               <LayoutGrid size={16} />
@@ -12340,7 +12333,7 @@ export default function SSRNPlatform() {
             <button
               type="button"
               onClick={() => setSystem("portal")}
-              title={lang === "en" ? "Back to RTC Applications" : "Retour aux Applications RTC"}
+              title="Tableau de bord"
               className="w-8 h-8 rounded-lg bg-[#714B67] hover:bg-[#86597a] flex items-center justify-center text-white transition-all shadow active:scale-95 shrink-0"
             >
               <LayoutGrid size={16} />
