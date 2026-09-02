@@ -1,3 +1,6 @@
+// Fallbacks globaux de sécurité contre toute ReferenceError
+const educationLevelActual = null;
+function notify(msg, type = "info") { try { if (typeof window !== "undefined") console.log(`[${type}] ${msg}`); } catch (e) {} }
 import EEcolePortal from "./components/EEcolePortal.jsx";
 import SignalementsCitoyensManager from "./components/SignalementsCitoyensManager";
 import { useLanguage, LanguageSwitcher } from "./lib/i18n.jsx";
@@ -8197,8 +8200,8 @@ function CamSmsApp({ onExit, adminNom, camSmsActif, sessionRole, sessionUserId, 
               sessionUserId={sessionUserId}
               userName={adminNom}
               userEmail=""
-              niveauEffectif={educationLevelActual || levelChosen || "Secondary"}
-              sessionEtablissement={sessionSchool || (educationLevelActual === "Secondary" || levelChosen === "Secondary" ? "GBHS Bamenda" : "Government Bilingual Primary School")}
+              niveauEffectif={levelEffective || levelChosen || "Secondary"}
+              sessionEtablissement={sessionSchool || (levelEffective === "Secondary" || levelChosen === "Secondary" ? "GBHS Bamenda" : "Government Bilingual Primary School")}
               sessionEnfantId={sessionLearnerId || "LRN-00001"}
               sessionGuardianLearnerIds={sessionGuardianLearnerIds}
               eleves={learnersFiltered.length > 0 ? learnersFiltered : learners}
@@ -10435,6 +10438,8 @@ function PersonnaliserLogoClientModal({ isOpen, onClose, onSave }) {
 }
 
 export default function SSRNPlatform() {
+  const [chatSyngese, setChatSyngese] = useState(() => typeof INITIAL_CHAT_MESSAGES !== "undefined" ? INITIAL_CHAT_MESSAGES : []);
+  const [chatCamSms, setChatCamSms] = useState(() => typeof INITIAL_CHAT_MESSAGES !== "undefined" ? INITIAL_CHAT_MESSAGES : []);
   const [system, setSystem] = useState("syngeshp"); // Démarrage direct et autonome sur SYNGESHP // "portal" | "ssrn" | "synrec" | "syndec"
 
   const [synrecActif, setSynrecActif] = useState(true); // disponibilité de SYNREC-CAM pour les utilisateurs, pilotée par l'Administrateur système

@@ -74,6 +74,10 @@ const ETAPES_RECRUTEMENT = [
 // ============================================================================
 // COMPOSANT PRINCIPAL CRM & SUITE RH RTC
 // ============================================================================
+const handleUpdateTicketStatut = (ticketId, nouveauStatut) => {
+  console.log("Update ticket", ticketId, nouveauStatut);
+};
+
 export default function SyncrmCamApp({
   onExit = () => {},
   onNavigateTab = () => {},

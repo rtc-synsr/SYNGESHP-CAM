@@ -183,7 +183,7 @@ export default function AiAssistant({
     if (!('speechSynthesis' in window) || !audioEnabled) return;
     window.speechSynthesis.cancel();
     const cleanText = text.replace(/[*_#•`-]/g, "");
-    const utterance = new SpeechSynthesisUtterance(cleanText);
+    const utterance = ((typeof window !== "undefined" && window.SpeechSynthesisUtterance) ? new window.SpeechSynthesisUtterance(cleanText) : null);
     utterance.lang = (lang === "en" || currentModule === "CAM-SMS") ? "en-US" : "fr-FR";
     utterance.rate = 1.05;
     utterance.onstart = () => setIsSpeaking(true);

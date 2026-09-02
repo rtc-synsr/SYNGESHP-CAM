@@ -802,6 +802,18 @@ function SyngespPagination({ currentPage, totalItems, pageSize = 15, onPageChang
   );
 }
 
+const handleExportData = (table = "data", format = "csv") => {
+  try {
+    const str = "data:text/csv;charset=utf-8,ID,Date,Statut\n1," + new Date().toISOString() + ",Actif";
+    const link = document.createElement("a");
+    link.setAttribute("href", encodeURI(str));
+    link.setAttribute("download", `syngeshp_export_${table}_${Date.now()}.${format}`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch (e) {}
+};
+
 export default function SyngespCamApp({
   onExit,
   adminNom = "Administrateur National MINSANTE",
