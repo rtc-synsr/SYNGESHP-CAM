@@ -1770,13 +1770,16 @@ export default function SyngespCamApp({
           </div>
 
           {/* Section Inférieure */}
-          <div className="pt-3 border-t border-white/10 space-y-2">
-            <div className="px-3 py-2 bg-[#102530] rounded-lg border border-white/5 text-xs">
-              <div className="text-[11px] text-[#8FA8B0]">Session Médicale</div>
-              <div className="font-semibold text-white truncate">{adminNom}</div>
-              <div className="text-[10px] text-emerald-400 font-mono mt-0.5">MINSANTE Cameroun</div>
+          <div className="p-3 border-t border-white/10 mt-auto bg-[#0A1A22]/80">
+            <div className="text-[10px] uppercase tracking-wider text-[#8FA8B0] font-mono mb-2 px-1">
+              SESSION
             </div>
-            
+            <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5">
+              <div className="text-xs text-white font-bold truncate">{adminNom}</div>
+              <div className="text-[11px] text-teal-300 font-mono mt-0.5">
+                {sessionProfession || (sessionRole === "medecin" ? "Médecin traitant" : sessionRole === "infirmier" ? "Personnel soignant" : sessionRole === "pharmacien" ? "Pharmacien" : "Administrateur hospitalier")}
+              </div>
+            </div>
           </div>
         </aside>
 

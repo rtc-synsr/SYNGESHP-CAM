@@ -2253,7 +2253,7 @@ export default function SyndecCamApp({
           <div className="text-[10px] uppercase tracking-wider text-[#8FA8B0] font-mono mb-2 px-1">
             SESSION
           </div>
-          <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5 mb-2.5">
+          <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5">
             <div className="text-xs text-white font-bold truncate">{adminNom}</div>
             <div className="text-[11px] text-teal-300 font-mono mt-0.5">
               {sessionRole === "citoyen"

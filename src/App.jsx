@@ -3464,11 +3464,21 @@ function SynrecCamApp({ onExit, adminNom, synrecActif, synrecPeriode, sessionRol
           })}
         </nav>
 
-        <div className="p-3 border-t cx-borderwhite8">
-          <div className="cx-text10px uppercase tracking-wide cx-text5C7680 font-mono mb-2 px-1">Session</div>
-          <div className="px-2.5 py-2 rounded-md bg-white/5 mb-2">
-            <div className="cx-text13px cx-textEAF2F4 font-medium truncate">{adminNom}</div>
-            <div className="cx-text11px cx-text5FC2D6 font-mono">Administrateur national</div>
+        <div className="p-3 border-t border-white/10 mt-auto bg-[#0A1A22]/80">
+          <div className="text-[10px] uppercase tracking-wider text-[#8FA8B0] font-mono mb-2 px-1">
+            SESSION
+          </div>
+          <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5">
+            <div className="text-xs text-white font-bold truncate">{adminNom}</div>
+            <div className="text-[11px] text-teal-300 font-mono mt-0.5">
+              {sessionRole === "agent"
+                ? "Agent recenseur"
+                : sessionRole === "superviseur"
+                ? "Superviseur de zone"
+                : sessionRole === "analyste"
+                ? "Analyste démographe"
+                : "Administrateur national"}
+            </div>
           </div>
         </div>
       </aside>
@@ -5594,6 +5604,30 @@ function SyngeseCamApp({ onExit, adminNom, syngeseActif, sessionRole, sessionUse
             </div>
           ))}
         </nav>
+
+        <div className="p-3 border-t border-white/10 mt-auto bg-[#0A1A22]/80">
+          <div className="text-[10px] uppercase tracking-wider text-[#8FA8B0] font-mono mb-2 px-1">
+            SESSION
+          </div>
+          <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5">
+            <div className="text-xs text-white font-bold truncate">{adminNom}</div>
+            <div className="text-[11px] text-teal-300 font-mono mt-0.5">
+              {sessionRole === "parent"
+                ? "Parent d'élève"
+                : sessionRole === "enseignant"
+                ? "Enseignant"
+                : sessionRole === "directeur" || sessionRole === "proviseur" || sessionRole === "principal"
+                ? "Chef d'établissement"
+                : sessionRole === "inspecteur"
+                ? "Inspecteur pédagogique"
+                : sessionRole === "promoteur"
+                ? "Promoteur"
+                : sessionRole === "eleve"
+                ? "Élève"
+                : "Administrateur national"}
+            </div>
+          </div>
+        </div>
       </aside>
 
       <main className="flex-1 overflow-y-auto flex flex-col">
@@ -8124,6 +8158,30 @@ function CamSmsApp({ onExit, adminNom, camSmsActif, sessionRole, sessionUserId, 
             </div>
           ))}
         </nav>
+
+        <div className="p-3 border-t border-white/10 mt-auto bg-[#0A1A22]/80">
+          <div className="text-[10px] uppercase tracking-wider text-[#8FA8B0] font-mono mb-2 px-1">
+            SESSION
+          </div>
+          <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5">
+            <div className="text-xs text-white font-bold truncate">{adminNom}</div>
+            <div className="text-[11px] text-teal-300 font-mono mt-0.5">
+              {sessionRole === "guardian" || sessionRole === "parent"
+                ? (lang === "en" ? "Parent / Guardian" : "Parent d'élève")
+                : sessionRole === "teacher"
+                ? (lang === "en" ? "Teacher" : "Enseignant")
+                : sessionRole === "principal" || sessionRole === "headteacher"
+                ? (lang === "en" ? "Principal / Head Teacher" : "Chef d'établissement")
+                : sessionRole === "inspector"
+                ? (lang === "en" ? "Education Inspector" : "Inspecteur")
+                : sessionRole === "proprietor"
+                ? (lang === "en" ? "School Proprietor" : "Promoteur")
+                : sessionRole === "learner" || sessionRole === "student"
+                ? (lang === "en" ? "Learner / Student" : "Élève")
+                : (lang === "en" ? "National Administrator" : "Administrateur national")}
+            </div>
+          </div>
+        </div>
       </aside>
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Odoo ERP Header */}
@@ -12302,11 +12360,13 @@ export default function SSRNPlatform() {
           })}
         </nav>
 
-        <div className="p-3 border-t cx-borderwhite8">
-          <div className="cx-text10px uppercase tracking-wide cx-text5C7680 font-mono mb-2 px-1">Compte connecté</div>
-          <div className="px-2.5 py-2 rounded-md bg-white/5 mb-2">
-            <div className="cx-text13px cx-textEAF2F4 font-medium truncate">{session.nom}</div>
-            <div className="cx-text11px cx-text5FC2D6 font-mono">{session.profil}</div>
+        <div className="p-3 border-t border-white/10 mt-auto bg-[#0A1A22]/80">
+          <div className="text-[10px] uppercase tracking-wider text-[#8FA8B0] font-mono mb-2 px-1">
+            SESSION
+          </div>
+          <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5 mb-2.5">
+            <div className="text-xs text-white font-bold truncate">{session.nom}</div>
+            <div className="text-[11px] text-teal-300 font-mono mt-0.5">{session.profil || roleLabel || "Administrateur national"}</div>
           </div>
           <div className="flex flex-col gap-1.5">
             <button
