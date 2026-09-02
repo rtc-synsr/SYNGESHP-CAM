@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <linearGradient id="gradHospBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#022C22" />
+      <stop offset="50%" stop-color="#065F46" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="goldGradHosp" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6EE7B7" />
+      <stop offset="50%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <filter id="glowHosp" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+  <circle cx="250" cy="250" r="235" fill="url(#gradHospBg)" stroke="url(#goldGradHosp)" stroke-width="8" filter="url(#glowHosp)"/>
+  
+  <path id="textArcHosp" d="M 80,250 A 170,170 0 0,1 420,250" fill="none" />
+  <text fill="#F8FAFC" font-family="Arial, sans-serif" font-size="15" font-weight="bold" letter-spacing="2.5">
+    <textPath href="#textArcHosp" startOffset="50%" text-anchor="middle">
+      RÉPUBLIQUE DU CAMEROUN • MINISTÈRE DE LA SANTÉ
+    </textPath>
+  </text>
+
+  <!-- Croix Médicale Rouge & Blanche Lumineuse -->
+  <rect x="220" y="140" width="60" height="170" rx="8" fill="#EF4444" filter="url(#glowHosp)"/>
+  <rect x="165" y="195" width="170" height="60" rx="8" fill="#EF4444" filter="url(#glowHosp)"/>
+  <rect x="230" y="150" width="40" height="150" rx="4" fill="#FFFFFF"/>
+  <rect x="175" y="205" width="150" height="40" rx="4" fill="#FFFFFF"/>
+
+  <!-- Caducée d'Esculape au Centre -->
+  <line x1="250" y1="130" x2="250" y2="330" stroke="#F59E0B" stroke-width="6" stroke-linecap="round"/>
+  <!-- Serpent stylisé -->
+  <path d="M 250,300 Q 285,270 250,240 Q 215,210 250,180 Q 285,150 250,140" fill="none" stroke="#F59E0B" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="250" cy="130" r="10" fill="#F59E0B"/>
+
+  <!-- Ruban Inférieur -->
+  <path d="M 60,395 Q 250,445 440,395 L 425,360 Q 250,410 75,360 Z" fill="url(#goldGradHosp)" filter="url(#glowHosp)"/>
+  <text x="250" y="385" fill="#022C22" font-family="Arial, sans-serif" font-size="16" font-weight="900" text-anchor="middle" letter-spacing="2">
+    FORMATION HOSPITALIÈRE
+  </text>
+  <text x="250" y="445" fill="#A7F3D0" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" letter-spacing="1.5">
+    SYNGESHP-CAM • GESTION HOSPITALIÈRE & CSU
+  </text>
+</svg>

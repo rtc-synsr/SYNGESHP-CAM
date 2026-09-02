@@ -57,8 +57,17 @@ function ModuleLoadingFallback() {
 const VILLES = ["Douala", "Yaoundé", "Bafoussam", "Bamenda", "Buea", "Garoua"];
 
 /* Logo RTC publié comme ressource séparée : bundle JS allégé et cache navigateur réutilisable. */
-const LOGO_BADGE_URI = new URL("../assets/logo/logo_crc.png", import.meta.url).href;
-const LOGO_LOGIN_URI = LOGO_BADGE_URI; // même image RTC, une seule copie des données en mémoire
+// Logo institutionnel du client (par défaut le blason sectoriel officiel, surchargeable dynamiquement via localStorage)
+const DEFAULT_CLIENT_LOGO_URI = new URL("../assets/logo/client_logo.svg", import.meta.url).href;
+const getActiveClientLogo = () => {
+  try {
+    const custom = localStorage.getItem("rtc_client_logo") || localStorage.getItem("custom_institution_logo");
+    if (custom && custom.startsWith("data:image")) return custom;
+  } catch (e) {}
+  return DEFAULT_CLIENT_LOGO_URI;
+};
+const LOGO_BADGE_URI = getActiveClientLogo();
+const LOGO_LOGIN_URI = getActiveClientLogo(); // même image RTC, une seule copie des données en mémoire
 
 // Villes représentatives des 10 régions du Cameroun, positionnées approximativement sur la carte stylisée
 const CITY_POS = {
@@ -2578,7 +2587,7 @@ function LockScreen({ sessionUser, lockReason, onUnlock, onLogout, currentUserDe
       <div className="w-full max-w-md my-auto relative z-10 space-y-5">
         {/* Header Institutionnel */}
         <div className="flex flex-col items-center text-center space-y-2">
-          <img src={LOGO_BADGE_URI} alt="Réseau de Transport Camerounais" className="w-44 h-auto rounded-xl shadow-2xl mb-1 border border-white/10" />
+          <img src={LOGO_BADGE_URI} alt="FORMATION HOSPITALIÈRE" className="w-44 h-auto rounded-xl shadow-2xl mb-1 border border-white/10" />
           <div className="text-[10px] uppercase font-bold text-gray-400 font-mono tracking-widest">
             RÉPUBLIQUE DU CAMEROUN • MINISTÈRE DES TRANSPORTS
           </div>
@@ -2703,16 +2712,28 @@ function LoginScreen({ onLogin, error, demoAccounts, onGoToSignup }) {
         <LanguageSwitcher />
       </div>
 
+      <PersonnaliserLogoClientModal isOpen={showLogoClientModal} onClose={() => setShowLogoClientModal(false)} />
       <div className="w-full max-w-md my-auto">
         <div className="flex flex-col items-center text-center mb-6">
-          <img src={LOGO_LOGIN_URI} alt="Réseau de Transport Camerounais" className="w-56 h-auto rounded-lg mb-4 shadow-2xl" />
+          
+        <div className="flex flex-col items-center group relative mb-3">
+          <img src={LOGO_LOGIN_URI} alt="Formation Hospitalière & Clinique" className="w-48 h-auto max-h-48 object-contain rounded-xl p-2 bg-white/5 border border-white/10 shadow-2xl mb-2 transition-transform duration-200 group-hover:scale-105" />
+          <button
+            type="button"
+            onClick={() => setShowLogoClientModal(true)}
+            title="Personnaliser le logo officiel de votre institution"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 border border-teal-500/30 text-[11px] font-medium transition-all shadow-sm"
+          >
+            <span>📷</span> <span>Personnaliser le logo du client</span>
+          </button>
+        </div>
           <h1 className="text-xl cx-textEAF2F4" style={{ fontFamily: "Rajdhani, sans-serif", fontWeight: 700 }}>
-            {t("app_title", "Réseau de Transport Camerounais")}
+            {localStorage.getItem("rtc_institution_nom") || "SYNGESHP-CAM — Formation Hospitalière & Clinique"}
           </h1>
           <p className="cx-text13px cx-text8FA8B0 mt-1">
             {lang === "en"
               ? "Sign in to access the national digital systems portal according to your profile and permissions."
-              : "Connectez-vous pour accéder au portail des systèmes numériques nationaux selon votre profil et vos droits d'accès."}
+              : "Connectez-vous pour accéder à la gestion des soins, admissions et ressources hospitalières."}
           </p>
         </div>
 
@@ -2828,7 +2849,18 @@ function SignupScreen({ onSubmit, onGoogleSignup, onBackToLogin, error, rules })
 
       <div className="w-full max-w-md my-auto">
         <div className="flex flex-col items-center text-center mb-6">
-          <img src={LOGO_LOGIN_URI} alt="Réseau de Transport Camerounais" className="w-56 h-auto rounded-lg mb-4 shadow-2xl" />
+          
+        <div className="flex flex-col items-center group relative mb-3">
+          <img src={LOGO_LOGIN_URI} alt="Formation Hospitalière & Clinique" className="w-48 h-auto max-h-48 object-contain rounded-xl p-2 bg-white/5 border border-white/10 shadow-2xl mb-2 transition-transform duration-200 group-hover:scale-105" />
+          <button
+            type="button"
+            onClick={() => setShowLogoClientModal(true)}
+            title="Personnaliser le logo officiel de votre institution"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 border border-teal-500/30 text-[11px] font-medium transition-all shadow-sm"
+          >
+            <span>📷</span> <span>Personnaliser le logo du client</span>
+          </button>
+        </div>
           <h1 className="text-xl cx-textEAF2F4" style={{ fontFamily: "Rajdhani, sans-serif", fontWeight: 700 }}>Créer un compte</h1>
           <p className="cx-text13px cx-text8FA8B0 mt-1">Créez votre compte personnel pour déclarer un événement d'état civil, enregistrer votre agence de transport, et bien plus — accès immédiat, sans validation préalable.</p>
         </div>
@@ -3047,7 +3079,18 @@ function ChangePasswordScreen({ pending, error, rules, onSubmit }) {
     <div className="w-full cx-minh760px cx-bg0A1A22 cx-textEAF2F4 overflow-hidden flex items-center justify-center p-6" style={{ fontFamily: "Inter, sans-serif" }}>
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center text-center mb-6">
-          <img src={LOGO_LOGIN_URI} alt="Réseau de Transport Camerounais" className="w-56 h-auto rounded-lg mb-4 shadow-2xl" />
+          
+        <div className="flex flex-col items-center group relative mb-3">
+          <img src={LOGO_LOGIN_URI} alt="Formation Hospitalière & Clinique" className="w-48 h-auto max-h-48 object-contain rounded-xl p-2 bg-white/5 border border-white/10 shadow-2xl mb-2 transition-transform duration-200 group-hover:scale-105" />
+          <button
+            type="button"
+            onClick={() => setShowLogoClientModal(true)}
+            title="Personnaliser le logo officiel de votre institution"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 border border-teal-500/30 text-[11px] font-medium transition-all shadow-sm"
+          >
+            <span>📷</span> <span>Personnaliser le logo du client</span>
+          </button>
+        </div>
           <h1 className="text-xl cx-textEAF2F4" style={{ fontFamily: "Rajdhani, sans-serif", fontWeight: 700 }}>Créer votre mot de passe</h1>
           <p className="cx-text13px cx-text8FA8B0 mt-1">
             Bonjour <span className="cx-textEAF2F4 font-medium">{pending?.nom}</span> — pour des raisons de sécurité, vous devez remplacer votre mot de passe temporaire avant de continuer.
@@ -4535,7 +4578,7 @@ function ModulesPortal({ adminNom, accessibleModules, sessionRole, userProfil, o
           </div>
           <div>
             <div className="cx-text15px font-bold tracking-tight text-white" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-              {t("app_title", "Réseau de Transport Camerounais")}
+              {localStorage.getItem("rtc_institution_nom") || "SYNGESHP-CAM — Formation Hospitalière & Clinique"}
             </div>
             <div className="text-[10px] text-[#00A09D] font-mono uppercase tracking-wider">
               {t("national_portal", "Portail des systèmes numériques nationaux")}
@@ -10401,7 +10444,97 @@ function FeuillesEtConges({ employes, role, roleRTC, adminNom, notify, logAction
   );
 }
 
-export default function SSRNPlatform() {
+export default 
+// Modal de personnalisation du logo officiel de l'établissement / institution cliente
+function PersonnaliserLogoClientModal({ isOpen, onClose, onSave }) {
+  const [preview, setPreview] = useState(getActiveClientLogo());
+  const [instNom, setInstNom] = useState(() => localStorage.getItem("rtc_institution_nom") || "");
+
+  if (!isOpen) return null;
+
+  const handleFile = (e) => {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setPreview(ev.target.result);
+    };
+    reader.readAsDataURL(f);
+  };
+
+  const valider = () => {
+    try {
+      if (preview && preview.startsWith("data:image")) {
+        localStorage.setItem("rtc_client_logo", preview);
+      }
+      if (instNom) {
+        localStorage.setItem("rtc_institution_nom", instNom);
+      }
+      if (onSave) onSave(preview, instNom);
+      alert("✓ Logo officiel enregistré avec succès !");
+      window.location.reload();
+    } catch (err) {
+      alert("Erreur lors de la sauvegarde : " + err.message);
+    }
+  };
+
+  const reinitialiser = () => {
+    try {
+      localStorage.removeItem("rtc_client_logo");
+      localStorage.removeItem("rtc_institution_nom");
+      alert("Logo réinitialisé à l'emblème institutionnel par défaut.");
+      window.location.reload();
+    } catch (err) {}
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+      <div className="bg-[#121E27] border border-teal-500/40 rounded-2xl p-6 max-w-md w-full shadow-2xl text-white">
+        <h3 className="text-lg font-bold mb-1 flex items-center gap-2 text-teal-300">
+          🏛️ Personnaliser le Logo Client
+        </h3>
+        <p className="text-xs text-gray-400 mb-4">
+          Téléversez le logo officiel de votre structure pour remplacer l'emblème par défaut.
+        </p>
+
+        <div className="flex flex-col items-center justify-center p-4 bg-[#0A1218] border border-white/10 rounded-xl mb-4">
+          <img src={preview} alt="Aperçu Logo" className="w-28 h-28 object-contain rounded-lg border border-white/10 p-1 bg-black/40 mb-3" />
+          <label className="px-3.5 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-xs font-bold cursor-pointer transition-colors">
+            Sélectionner un fichier (PNG, JPG, SVG)
+            <input type="file" accept="image/*" className="hidden" onChange={handleFile} />
+          </label>
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-xs font-medium text-gray-300 mb-1">Nom officiel de votre structure (Optionnel) :</label>
+          <input
+            type="text"
+            className="w-full px-3 py-2 rounded-lg bg-[#0D1821] border border-white/10 text-xs text-white focus:border-teal-400 focus:outline-none"
+            placeholder="Ex: Lycée Bilingue de Yaoundé / Mairie de Douala..."
+            value={instNom}
+            onChange={(e) => setInstNom(e.target.value)}
+          />
+        </div>
+
+        <div className="flex items-center justify-between gap-3 pt-3 border-t border-white/10">
+          <button type="button" onClick={reinitialiser} className="text-xs text-red-400 hover:underline">
+            Réinitialiser
+          </button>
+          <div className="flex items-center gap-2">
+            <button type="button" onClick={onClose} className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs">
+              Annuler
+            </button>
+            <button type="button" onClick={valider} className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-teal-600 to-emerald-600 hover:opacity-90 font-bold text-xs">
+              Enregistrer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SSRNPlatform() {
   const [system, setSystem] = useState("syngeshp"); // Démarrage direct et autonome sur SYNGESHP // "portal" | "ssrn" | "synrec" | "syndec"
 
   const [synrecActif, setSynrecActif] = useState(true); // disponibilité de SYNREC-CAM pour les utilisateurs, pilotée par l'Administrateur système
@@ -12209,7 +12342,7 @@ export default function SSRNPlatform() {
       <aside className={`${mobileNavOpen ? "flex fixed" : "hidden"} md:flex md:relative inset-y-0 left-0 z-40 w-64 shrink-0 cx-bg0D1F28 border-r cx-borderwhite8 flex-col`}>
         <div className="px-5 py-5 border-b cx-borderwhite8">
           <div className="flex items-center gap-2.5">
-            <img src={LOGO_BADGE_URI} alt="Réseau de Transport Camerounais" className="w-9 h-9 rounded-md object-cover shrink-0" />
+            <img src={LOGO_BADGE_URI} alt="FORMATION HOSPITALIÈRE" className="w-9 h-9 rounded-md object-cover shrink-0" />
             <div>
               <div className="cx-text15px font-semibold tracking-tight" style={{ fontFamily: "Rajdhani, sans-serif" }}>RTC</div>
             </div>
@@ -12568,7 +12701,7 @@ export default function SSRNPlatform() {
 
               <div className="cx-bg102530 border cx-borderwhite8 rounded-xl p-6">
                 <div>
-                  <h3 className="text-lg cx-textEAF2F4 mb-1" style={{ fontFamily: "Rajdhani, sans-serif", fontWeight: 700 }}>Réseau de Transport Camerounais</h3>
+                  <h3 className="text-lg cx-textEAF2F4 mb-1" style={{ fontFamily: "Rajdhani, sans-serif", fontWeight: 700 }}>SYNGESHP-CAM — FORMATION HOSPITALIÈRE</h3>
                   <p className="cx-text13px cx-text8FA8B0 mb-3">Smart Mobility • Intelligent Transport • Road Safety</p>
                   <p className="cx-text13px cx-textD7E4E7 leading-relaxed">
                     Réseau de Transport Camerounais est une entreprise camerounaise spécialisée dans la conception de plateformes numériques sécurisées,
