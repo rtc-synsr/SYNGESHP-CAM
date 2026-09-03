@@ -14066,58 +14066,6 @@ export default function SSRNPlatform() {
 
               {role === "admin" && (
                 <div className="cx-bg102530 border cx-borderE8A33D40 rounded-lg p-4 mb-4">
-                  <h3 className="text-sm font-medium cx-textD7E4E7 flex items-center gap-2 mb-1"><MapPinned size={15} className="cx-textE8A33D" /> Disponibilité du module SYNREC-CAM <Badge tone={synrecActif ? "green" : "muted"}>{synrecActif ? "Actif" : "Inactif"}</Badge></h3>
-                  <p className="cx-text12px cx-text8FA8B0 mb-3">Le Système National Numérique de Recensement du Cameroun est un système indépendant. Activez-le pour le rendre visible aux utilisateurs pendant la période du recensement ; désactivez-le en dehors de cette période. L'Administrateur système y a toujours accès pour la configuration.</p>
-                  <div className="flex flex-wrap items-end gap-3">
-                    <Button small variant={synrecActif ? "danger" : "success"} onClick={() => setSynrecActif(!synrecActif)}><Power size={13} /> {synrecActif ? "Désactiver" : "Activer"} SYNREC-CAM</Button>
-                    <Field label="Date de début"><input type="date" className={inputCls} value={synrecPeriode.debut} onChange={(e) => setSynrecPeriode({ ...synrecPeriode, debut: e.target.value })} /></Field>
-                    <Field label="Date de fin"><input type="date" className={inputCls} value={synrecPeriode.fin} onChange={(e) => setSynrecPeriode({ ...synrecPeriode, fin: e.target.value })} /></Field>
-                  </div>
-                </div>
-              )}
-
-              {role === "admin" && (
-                <div className="cx-bg102530 border cx-borderE8A33D40 rounded-lg p-4 mb-4">
-                  <h3 className="text-sm font-medium cx-textD7E4E7 flex items-center gap-2 mb-1"><UsersRound size={15} className="cx-textE8A33D" /> Disponibilité du module SYNDEC-CAM <Badge tone={syndecActif ? "green" : "muted"}>{syndecActif ? "Actif" : "Inactif"}</Badge></h3>
-                  <p className="cx-text12px cx-text8FA8B0 mb-3">Le Système Numérique de Déclaration du Cameroun (état civil) est un système indépendant. Activez-le pour le rendre visible aux utilisateurs autorisés ; désactivez-le si besoin. L'Administrateur système y a toujours accès pour la configuration.</p>
-                  <div className="flex flex-wrap items-end gap-3">
-                    <Button small variant={syndecActif ? "danger" : "success"} onClick={() => setSyndecActif(!syndecActif)}><Power size={13} /> {syndecActif ? "Désactiver" : "Activer"} SYNDEC-CAM</Button>
-                  </div>
-                </div>
-              )}
-
-              {role === "admin" && (
-                <div className="cx-bg102530 border cx-borderE8A33D40 rounded-lg p-4 mb-4">
-                  <h3 className="text-sm font-medium cx-textD7E4E7 flex items-center gap-2 mb-1"><GraduationCap size={15} className="cx-textE8A33D" /> Disponibilité du module SYNGESE-CAM <Badge tone={syngeseActif ? "green" : "muted"}>{syngeseActif ? "Actif" : "Inactif"}</Badge></h3>
-                  <p className="cx-text12px cx-text8FA8B0 mb-3">Le Système intégré de gestion du système éducatif (francophone) est un système indépendant. Activez-le pour le rendre visible aux comptes école ; désactivez-le si besoin. L'Administrateur système y a toujours accès pour la configuration.</p>
-                  <div className="flex flex-wrap items-end gap-3">
-                    <Button small variant={syngeseActif ? "danger" : "success"} onClick={() => setSyngeseActif(!syngeseActif)}><Power size={13} /> {syngeseActif ? "Désactiver" : "Activer"} SYNGESE-CAM</Button>
-                  </div>
-                </div>
-              )}
-
-              {role === "admin" && (
-                <div className="cx-bg102530 border cx-borderE8A33D40 rounded-lg p-4 mb-4">
-                  <h3 className="text-sm font-medium cx-textD7E4E7 flex items-center gap-2 mb-1"><GraduationCap size={15} className="cx-textE8A33D" /> Disponibilité du module CAM-SMS <Badge tone={camSmsActif ? "green" : "muted"}>{camSmsActif ? "Actif" : "Inactif"}</Badge></h3>
-                  <p className="cx-text12px cx-text8FA8B0 mb-3">Le Cameroon School Management System (sous-système éducatif anglophone) est un système indépendant, distinct de SYNGESE-CAM. Activez-le pour le rendre visible aux comptes école ; désactivez-le si besoin. L'Administrateur système y a toujours accès pour la configuration.</p>
-                  <div className="flex flex-wrap items-end gap-3">
-                    <Button small variant={camSmsActif ? "danger" : "success"} onClick={() => setCamSmsActif(!camSmsActif)}><Power size={13} /> {camSmsActif ? "Désactiver" : "Activer"} CAM-SMS</Button>
-                  </div>
-                </div>
-              )}
-
-              {role === "admin" && (
-                <div className="cx-bg102530 border cx-borderE8A33D40 rounded-lg p-4 mb-4">
-                  <h3 className="text-sm font-medium cx-textD7E4E7 flex items-center gap-2 mb-1"><HeartPulse size={15} className="cx-textE8A33D" /> Disponibilité du module SYNGESHP-CAM <Badge tone={syngeshpActif ? "green" : "muted"}>{syngeshpActif ? "Actif" : "Inactif"}</Badge></h3>
-                  <p className="cx-text12px cx-text8FA8B0 mb-3">Le Système Numérique de Gestion Hospitalière et de Planification est un système indépendant des cinq autres modules de la plateforme. Activez-le pour le rendre visible aux comptes MINSANTE et aux directions d'hôpital ; désactivez-le si besoin. L'Administrateur système y a toujours accès pour la configuration.</p>
-                  <div className="flex flex-wrap items-end gap-3">
-                    <Button small variant={syngeshpActif ? "danger" : "success"} onClick={() => setSyngeshpActif(!syngeshpActif)}><Power size={13} /> {syngeshpActif ? "Désactiver" : "Activer"} SYNGESHP-CAM</Button>
-                  </div>
-                </div>
-              )}
-
-              {role === "admin" && (
-                <div className="cx-bg102530 border cx-borderE8A33D40 rounded-lg p-4 mb-4">
                   <h3 className="text-sm font-medium cx-textD7E4E7 flex items-center gap-2 mb-1"><LayoutGrid size={15} className="cx-textE8A33D" /> Disponibilité du module CRM & RH <Badge tone={crmActif ? "green" : "muted"}>{crmActif ? "Actif" : "Inactif"}</Badge></h3>
                   <p className="cx-text12px cx-text8FA8B0 mb-3">La suite intégrée CRM & RH regroupe la gestion commerciale des agences de transport et partenaires SYNSR ainsi que la gestion complète des employés RTC (Recrutement, Feuilles de temps 40h Samedi-Vendredi, Congés et Paie). Réservé exclusivement au Personnel du RTC.</p>
                   <div className="flex flex-wrap items-end gap-3">
