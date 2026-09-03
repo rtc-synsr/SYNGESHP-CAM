@@ -117,7 +117,7 @@ export default function EEcolePortal({
     if (cl) return cl;
 
     return isPrimaire ? {
-      id: "CLS-P01", nom: activeEleve.classe || (isAnglophone ? "Class 6 A" : "CM2 A"), niveau: isAnglophone ? "Primary" : "Primaire", salle: "Salle 4", enseignantPrincipal: "Mme Marceline Ateba"
+      id: "CLS-P01", nom: activeEleve.classe || activeEleve.className || (isAnglophone ? "Class 4 A" : "CM2 A"), niveau: isAnglophone ? "Primary" : "Primaire", salle: "Salle 4", enseignantPrincipal: "Mme Marceline Ateba"
     } : {
       id: "CLS-S01", nom: activeEleve.classe || (isAnglophone ? "Form 3 C" : "6ème A"), niveau: isAnglophone ? "Secondary" : "Secondaire", salle: "Salle 12", enseignantPrincipal: "M. Bertrand Ndjock"
     };
@@ -837,7 +837,7 @@ export default function EEcolePortal({
                 <span>•</span>
                 <span>Classe : <strong className="text-white">{activeClasse?.nom}</strong></span>
                 <span>•</span>
-                <span>Prof. Principal : <strong className="text-gray-300">{activeClasse?.enseignantPrincipal}</strong></span>
+                <span>Prof. Principal : <strong className="text-gray-300">{activeClasse?.enseignantPrincipal || activeClasse?.classTeacher || activeClasse?.teacher || (isAnglophone ? "Mrs. Rebecca Ashu" : "Mme Marceline Ateba")}</strong></span>
               </div>
             </div>
           </div>

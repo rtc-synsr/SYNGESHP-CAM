@@ -7301,8 +7301,8 @@ const seedSchoolsCamSms = [
 // et la structure Form/Sixth pour le secondaire, conformes au cahier des charges, sections 3.2 et
 // 4.2. Configuration centralisée pour rester modifiable sans changer le code de l'application.
 const LEVELS_NURSERY = ["Nursery 1", "Nursery 2", "Nursery 3"];
-const LEVELS_LOWER_PRIMARY = ["Primary 1", "Primary 2", "Primary 3"];
-const LEVELS_UPPER_PRIMARY = ["Primary 4", "Primary 5", "Primary 6"];
+const LEVELS_LOWER_PRIMARY = ["Primary 1", "Primary 2", "Primary 3", "Class 1", "Class 2", "Class 3"];
+const LEVELS_UPPER_PRIMARY = ["Primary 4", "Primary 5", "Primary 6", "Class 4", "Class 5", "Class 6"];
 const LEVELS_PRIMARY_ALL = [...LEVELS_NURSERY, ...LEVELS_LOWER_PRIMARY, ...LEVELS_UPPER_PRIMARY];
 const LEVELS_LOWER_SECONDARY = ["Form 1", "Form 2", "Form 3", "Form 4", "Form 5"];
 const LEVELS_UPPER_SECONDARY = ["Lower Sixth", "Upper Sixth"];
@@ -7320,7 +7320,7 @@ const seedTeachersCamSms = [
 ];
 
 const seedClassesCamSms = [
-  { id: "CLS-0001", school: "Government Bilingual Primary School Buea Town", level: "Primary 4", stream: "", classTeacher: "Rebecca Ashu", classroom: "Room 4", capacity: 40 },
+  { id: "CLS-0001", school: "Government Bilingual Primary School Buea Town", level: "Primary 4", nom: "Class 4 A", name: "Class 4 A", stream: "", classTeacher: "Rebecca Ashu", enseignantPrincipal: "Mrs. Rebecca Ashu", classroom: "Room 4", capacity: 40 },
   { id: "CLS-0002", school: "Government Bilingual High School Bamenda", level: "Form 3", stream: "Science", classTeacher: "Emmanuel Fru", classroom: "Room 12", capacity: 50 },
 ];
 
@@ -7328,7 +7328,7 @@ const seedClassesCamSms = [
 // recommandation du cahier des charges adapté (section 8.1), pour éviter de dupliquer les
 // informations personnelles entre les deux paliers.
 const seedLearnersCamSms = [
-  { id: "LRN-0001", admissionNumber: "GBPS-2026-0001", school: "Government Bilingual Primary School Buea Town", classId: "CLS-0001", learnerType: "PUPIL", firstName: "Divine", middleName: "", lastName: "Ojong", gender: "M", dateOfBirth: "2016-04-12", placeOfBirth: "Buea", status: "Active", guardianName: "Ojong Peter", guardianRelationship: "Father", guardianPhone: "6 77 11 22 33", guardianEmail: "", enrollmentDate: "2026-09-02" },
+  { id: "LRN-0001", admissionNumber: "GBPS-2026-0001", school: "Government Bilingual Primary School Buea Town", classId: "CLS-0001", classe: "Class 4 A", className: "Class 4 A", level: "Primary 4", name: "Divine Ojong", learnerType: "PUPIL", firstName: "Divine", middleName: "", lastName: "Ojong", gender: "M", dateOfBirth: "2016-04-12", placeOfBirth: "Buea", status: "Active", guardianName: "Ojong Peter", guardianRelationship: "Father", guardianPhone: "6 77 11 22 33", guardianEmail: "", enrollmentDate: "2026-09-02" },
   { id: "LRN-0002", admissionNumber: "GBHS-2026-0001", school: "Government Bilingual High School Bamenda", classId: "CLS-0002", learnerType: "STUDENT", firstName: "Larissa", middleName: "N.", lastName: "Ndifor", gender: "F", dateOfBirth: "2011-08-03", placeOfBirth: "Bamenda", status: "Active", guardianName: "Ndifor Mercy", guardianRelationship: "Mother", guardianPhone: "6 55 33 22 11", guardianEmail: "mercy.ndifor@test.cm", enrollmentDate: "2020-09-01" },
 ];
 
