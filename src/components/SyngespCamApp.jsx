@@ -11,7 +11,7 @@ import {
   CheckCircle2, Plus, Search, Filter, Download, Stethoscope, Bed,
   Scissors, FlaskConical, Pill, Receipt, ShieldAlert, Check, X,
   UserCheck, ArrowRight, RefreshCw, Database, Eye, Pencil, Trash2,
-  LogOut, PhoneCall, Mail, MapPin, HeartPulse, FileText, Send, UserPlus,
+  LogOut, Lock, PhoneCall, Mail, MapPin, HeartPulse, FileText, Send, UserPlus,
   AlertOctagon, Info, ChevronRight, Activity, Moon, Sun, ArrowLeftRight,
   Printer, CheckSquare, XCircle, FileSpreadsheet, ShieldCheck, MessageSquare
 } from "lucide-react";
@@ -816,6 +816,8 @@ const handleExportData = (table = "data", format = "csv") => {
 
 export default function SyngespCamApp({
   onExit,
+  onLock,
+  onLogout,
   adminNom = "Administrateur National MINSANTE",
   sessionRole = "admin",
   sessionUserId = null,
@@ -1774,11 +1776,31 @@ export default function SyngespCamApp({
             <div className="text-[10px] uppercase tracking-wider text-[#8FA8B0] font-mono mb-2 px-1">
               SESSION
             </div>
-            <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5">
+            <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5 mb-2.5">
               <div className="text-xs text-white font-bold truncate">{adminNom}</div>
               <div className="text-[11px] text-teal-300 font-mono mt-0.5">
                 {sessionProfession || (sessionRole === "medecin" ? "Médecin traitant" : sessionRole === "infirmier" ? "Personnel soignant" : sessionRole === "pharmacien" ? "Pharmacien" : "Administrateur hospitalier")}
               </div>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <button
+                type="button"
+                onClick={() => { if (onLock) onLock(); else window.dispatchEvent(new CustomEvent("rtc_lock_session")); }}
+                className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/25 text-xs font-medium transition-all active:scale-98"
+                title="Verrouiller la session en cours"
+              >
+                <Lock size={13} />
+                <span>Verrouiller</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => { if (onLogout) onLogout(); else window.dispatchEvent(new CustomEvent("rtc_logout")); }}
+                className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/25 text-xs font-medium transition-all active:scale-98"
+                title="Fermer la session et se déconnecter"
+              >
+                <LogOut size={13} />
+                <span>Déconnexion</span>
+              </button>
             </div>
           </div>
         </aside>

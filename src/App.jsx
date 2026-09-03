@@ -3168,7 +3168,7 @@ function menagesRecensesRegion(region, annee) {
   return Math.round(populationRecenseeRegion(region, annee) / 4.6);
 }
 
-function SynrecCamApp({ onExit, adminNom, synrecActif, synrecPeriode, sessionRole, sessionUserId, utilisateursSynrec, onCreerCompteSynrec }) {
+function SynrecCamApp({ onExit, onLock, onLogout, adminNom, synrecActif, synrecPeriode, sessionRole, sessionUserId, utilisateursSynrec, onCreerCompteSynrec }) {
   const [synrecTab, setSynrecTab] = useState("synrecDashboard");
   // Autorisation d'export individuelle (compte partagé entre les 3 modules) — activée par
   // défaut, désactivable par l'Administrateur système depuis le module Utilisateurs de
@@ -3468,7 +3468,7 @@ function SynrecCamApp({ onExit, adminNom, synrecActif, synrecPeriode, sessionRol
           <div className="text-[10px] uppercase tracking-wider text-[#8FA8B0] font-mono mb-2 px-1">
             SESSION
           </div>
-          <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5">
+          <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5 mb-2.5">
             <div className="text-xs text-white font-bold truncate">{adminNom}</div>
             <div className="text-[11px] text-teal-300 font-mono mt-0.5">
               {sessionRole === "agent"
@@ -3479,6 +3479,26 @@ function SynrecCamApp({ onExit, adminNom, synrecActif, synrecPeriode, sessionRol
                 ? "Analyste démographe"
                 : "Administrateur national"}
             </div>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <button
+              type="button"
+              onClick={() => { if (onLock) onLock(); else window.dispatchEvent(new CustomEvent("rtc_lock_session")); }}
+              className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/25 text-xs font-medium transition-all active:scale-98"
+              title="Verrouiller la session en cours"
+            >
+              <Lock size={13} />
+              <span>Verrouiller</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => { if (onLogout) onLogout(); else window.dispatchEvent(new CustomEvent("rtc_logout")); }}
+              className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/25 text-xs font-medium transition-all active:scale-98"
+              title="Fermer la session et se déconnecter"
+            >
+              <LogOut size={13} />
+              <span>Déconnexion</span>
+            </button>
           </div>
         </div>
       </aside>
@@ -4804,7 +4824,7 @@ const seedEmploisDuTempsSyngese = [
   { id: "EDT-0002", etablissement: "École Publique Bilingue de Bonanjo", classeId: "CLS-0001", matiereId: "MAT-0002", enseignantId: "ENS-0001", salle: "Salle 4", jour: "Lundi", heureDebut: "09:00", heureFin: "10:00" },
 ];
 
-function SyngeseCamApp({ onExit, adminNom, syngeseActif, sessionRole, sessionUserId, sessionEtablissement, sessionEnfantId, sessionRegion, sessionDepartement, sessionMesEtablissements, utilisateursSyngese, onCreerCompteSyngese }) {
+function SyngeseCamApp({ onExit, onLock, onLogout, adminNom, syngeseActif, sessionRole, sessionUserId, sessionEtablissement, sessionEnfantId, sessionRegion, sessionDepartement, sessionMesEtablissements, utilisateursSyngese, onCreerCompteSyngese }) {
   const { lang, t } = useLanguage();
   const isParentOuEleve = sessionRole === "parent_syngese" || sessionRole === "eleve_syngese";
   const [syngeseTab, setSyngeseTab] = useState(isParentOuEleve ? "syngeseEEcole" : "syngeseDashboard");
@@ -5609,7 +5629,7 @@ function SyngeseCamApp({ onExit, adminNom, syngeseActif, sessionRole, sessionUse
           <div className="text-[10px] uppercase tracking-wider text-[#8FA8B0] font-mono mb-2 px-1">
             SESSION
           </div>
-          <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5">
+          <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5 mb-2.5">
             <div className="text-xs text-white font-bold truncate">{adminNom}</div>
             <div className="text-[11px] text-teal-300 font-mono mt-0.5">
               {sessionRole === "parent"
@@ -5626,6 +5646,26 @@ function SyngeseCamApp({ onExit, adminNom, syngeseActif, sessionRole, sessionUse
                 ? "Élève"
                 : "Administrateur national"}
             </div>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <button
+              type="button"
+              onClick={() => { if (onLock) onLock(); else window.dispatchEvent(new CustomEvent("rtc_lock_session")); }}
+              className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/25 text-xs font-medium transition-all active:scale-98"
+              title="Verrouiller la session en cours"
+            >
+              <Lock size={13} />
+              <span>Verrouiller</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => { if (onLogout) onLogout(); else window.dispatchEvent(new CustomEvent("rtc_logout")); }}
+              className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/25 text-xs font-medium transition-all active:scale-98"
+              title="Fermer la session et se déconnecter"
+            >
+              <LogOut size={13} />
+              <span>Déconnexion</span>
+            </button>
           </div>
         </div>
       </aside>
@@ -7372,7 +7412,7 @@ const seedTimetableCamSms = [
   { id: "TT-0002", classId: "CLS-0002", day: "Monday", startTime: "08:00", endTime: "09:00", subjectId: "SUB-0003", teacher: "Emmanuel Fru" },
 ];
 
-function CamSmsApp({ onExit, adminNom, camSmsActif, sessionRole, sessionUserId, sessionSchool, sessionLearnerId, sessionGuardianLearnerIds, sessionEducationLevel, sessionMySchools, sessionRegion, sessionDivision, sessionFormMasterClassId, utilisateursCamSms, onCreerCompteCamSms }) {
+function CamSmsApp({ onExit, onLock, onLogout, adminNom, camSmsActif, sessionRole, sessionUserId, sessionSchool, sessionLearnerId, sessionGuardianLearnerIds, sessionEducationLevel, sessionMySchools, sessionRegion, sessionDivision, sessionFormMasterClassId, utilisateursCamSms, onCreerCompteCamSms }) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [levelChosen, setLevelChosen] = useState(null); // "Primary" | "Secondary"
   const isParentOrPupilCamSms = sessionRole === "parent_camsms" || sessionRole === "pupil_camsms" || sessionRole === "learner_camsms";
@@ -8163,7 +8203,7 @@ function CamSmsApp({ onExit, adminNom, camSmsActif, sessionRole, sessionUserId, 
           <div className="text-[10px] uppercase tracking-wider text-[#8FA8B0] font-mono mb-2 px-1">
             SESSION
           </div>
-          <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5">
+          <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/5 mb-2.5">
             <div className="text-xs text-white font-bold truncate">{adminNom}</div>
             <div className="text-[11px] text-teal-300 font-mono mt-0.5">
               {sessionRole === "guardian" || sessionRole === "parent"
@@ -8180,6 +8220,26 @@ function CamSmsApp({ onExit, adminNom, camSmsActif, sessionRole, sessionUserId, 
                 ? (lang === "en" ? "Learner / Student" : "Élève")
                 : (lang === "en" ? "National Administrator" : "Administrateur national")}
             </div>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <button
+              type="button"
+              onClick={() => { if (onLock) onLock(); else window.dispatchEvent(new CustomEvent("rtc_lock_session")); }}
+              className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/25 text-xs font-medium transition-all active:scale-98"
+              title={lang === "en" ? "Lock current session" : "Verrouiller la session en cours"}
+            >
+              <Lock size={13} />
+              <span>{lang === "en" ? "Lock" : "Verrouiller"}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => { if (onLogout) onLogout(); else window.dispatchEvent(new CustomEvent("rtc_logout")); }}
+              className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/25 text-xs font-medium transition-all active:scale-98"
+              title={lang === "en" ? "Sign out and close session" : "Fermer la session et se déconnecter"}
+            >
+              <LogOut size={13} />
+              <span>{lang === "en" ? "Sign Out" : "Déconnexion"}</span>
+            </button>
           </div>
         </div>
       </aside>
@@ -11183,6 +11243,18 @@ export default function SSRNPlatform() {
     setSystem("syngeshp");
   };
 
+  // Écouteurs globaux pour le Verrouillage et la Déconnexion depuis tous les modules
+  useEffect(() => {
+    const handleEventLock = () => lockSession("manual");
+    const handleEventLogout = () => logout();
+    window.addEventListener("rtc_lock_session", handleEventLock);
+    window.addEventListener("rtc_logout", handleEventLogout);
+    return () => {
+      window.removeEventListener("rtc_lock_session", handleEventLock);
+      window.removeEventListener("rtc_logout", handleEventLogout);
+    };
+  }, [session]);
+
   const { lang, t } = useLanguage();
   const navGroups = useMemo(() => [
     { items: [
@@ -12152,7 +12224,7 @@ export default function SSRNPlatform() {
   if (system === "synrec") {
     return (
       <>
-        <SynrecCamApp onExit={() => setSystem("portal")} adminNom={session.nom} synrecActif={synrecActif} synrecPeriode={synrecPeriode} sessionRole={role} sessionUserId={session?.userId} utilisateursSynrec={utilisateurs} onCreerCompteSynrec={(params) => creerCompteInstitution({ ...params, module: "SYNREC-CAM" })} />
+        <SynrecCamApp onLock={() => lockSession("manual")} onLogout={logout} onExit={() => setSystem("portal")} adminNom={session.nom} synrecActif={synrecActif} synrecPeriode={synrecPeriode} sessionRole={role} sessionUserId={session?.userId} utilisateursSynrec={utilisateurs} onCreerCompteSynrec={(params) => creerCompteInstitution({ ...params, module: "SYNREC-CAM" })} />
         <AiAssistant
           currentModule="SYNREC-CAM"
           currentTab="recensement"
@@ -12167,7 +12239,7 @@ export default function SSRNPlatform() {
     const compteConnecte = utilisateurs.find((u) => u.id === session?.userId);
     return (
       <>
-        <SyndecCamApp onExit={() => setSystem("portal")} adminNom={session.nom} syndecActif={syndecActif} syndecPeriode={syndecPeriode} sessionRole={role} sessionUserId={session?.userId} sessionCommune={compteConnecte?.commune || ""} utilisateursSyndec={utilisateurs} onCreerCompteSyndec={(params) => creerCompteInstitution({ ...params, module: "SYNDEC-CAM" })} onNotify={notify} />
+        <SyndecCamApp onLock={() => lockSession("manual")} onLogout={logout} onExit={() => setSystem("portal")} adminNom={session.nom} syndecActif={syndecActif} syndecPeriode={syndecPeriode} sessionRole={role} sessionUserId={session?.userId} sessionCommune={compteConnecte?.commune || ""} utilisateursSyndec={utilisateurs} onCreerCompteSyndec={(params) => creerCompteInstitution({ ...params, module: "SYNDEC-CAM" })} onNotify={notify} />
         <AiAssistant
           currentModule="SYNDEC-CAM"
           currentTab="dashboard"
@@ -12215,7 +12287,7 @@ export default function SSRNPlatform() {
     const compteConnecteEcole = utilisateurs.find((u) => u.id === session?.userId);
     return (
       <>
-        <SyngeseCamApp onExit={() => setSystem("portal")} adminNom={session.nom} syngeseActif={syngeseActif} sessionRole={role} sessionUserId={session?.userId} sessionEtablissement={compteConnecteEcole?.etablissement || ""} sessionEnfantId={compteConnecteEcole?.enfantId || ""} sessionRegion={compteConnecteEcole?.region || ""} sessionDepartement={compteConnecteEcole?.departement || ""} sessionMesEtablissements={compteConnecteEcole?.mesEtablissements || []} utilisateursSyngese={utilisateurs} onCreerCompteSyngese={(params) => creerCompteInstitution({ ...params, module: "SYNGESE-CAM" })} />
+        <SyngeseCamApp onLock={() => lockSession("manual")} onLogout={logout} onExit={() => setSystem("portal")} adminNom={session.nom} syngeseActif={syngeseActif} sessionRole={role} sessionUserId={session?.userId} sessionEtablissement={compteConnecteEcole?.etablissement || ""} sessionEnfantId={compteConnecteEcole?.enfantId || ""} sessionRegion={compteConnecteEcole?.region || ""} sessionDepartement={compteConnecteEcole?.departement || ""} sessionMesEtablissements={compteConnecteEcole?.mesEtablissements || []} utilisateursSyngese={utilisateurs} onCreerCompteSyngese={(params) => creerCompteInstitution({ ...params, module: "SYNGESE-CAM" })} />
         <AiAssistant
           currentModule="SYNGESE-CAM"
           currentTab="scolarite"
@@ -12232,6 +12304,8 @@ export default function SSRNPlatform() {
       <>
         <Suspense fallback={<ModuleLoadingFallback />}>
           <SyngespCamApp
+            onLock={() => lockSession("manual")}
+            onLogout={logout}
             onExit={() => setTab("dashboard")}
             adminNom={session.nom}
             syngespActif={syngeshpActif}
@@ -12257,7 +12331,7 @@ export default function SSRNPlatform() {
     const compteConnecteSchool = utilisateurs.find((u) => u.id === session?.userId);
     return (
       <>
-        <CamSmsApp onExit={() => setSystem("portal")} adminNom={session.nom} camSmsActif={camSmsActif} sessionRole={role} sessionUserId={session?.userId} sessionSchool={compteConnecteSchool?.school || ""} sessionLearnerId={compteConnecteSchool?.learnerId || ""} sessionGuardianLearnerIds={compteConnecteSchool?.guardianLearnerIds || []} sessionEducationLevel={compteConnecteSchool?.educationLevel || ""} sessionMySchools={compteConnecteSchool?.mySchools || []} sessionRegion={compteConnecteSchool?.region || ""} sessionDivision={compteConnecteSchool?.division || ""} sessionFormMasterClassId={compteConnecteSchool?.formMasterClassId || ""} utilisateursCamSms={utilisateurs} onCreerCompteCamSms={(params) => creerCompteInstitution({ ...params, module: "CAM-SMS" })} />
+        <CamSmsApp onLock={() => lockSession("manual")} onLogout={logout} onExit={() => setSystem("portal")} adminNom={session.nom} camSmsActif={camSmsActif} sessionRole={role} sessionUserId={session?.userId} sessionSchool={compteConnecteSchool?.school || ""} sessionLearnerId={compteConnecteSchool?.learnerId || ""} sessionGuardianLearnerIds={compteConnecteSchool?.guardianLearnerIds || []} sessionEducationLevel={compteConnecteSchool?.educationLevel || ""} sessionMySchools={compteConnecteSchool?.mySchools || []} sessionRegion={compteConnecteSchool?.region || ""} sessionDivision={compteConnecteSchool?.division || ""} sessionFormMasterClassId={compteConnecteSchool?.formMasterClassId || ""} utilisateursCamSms={utilisateurs} onCreerCompteCamSms={(params) => creerCompteInstitution({ ...params, module: "CAM-SMS" })} />
         <AiAssistant
           currentModule="CAM-SMS"
           currentTab="school"
