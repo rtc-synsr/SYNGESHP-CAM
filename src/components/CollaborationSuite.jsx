@@ -315,7 +315,7 @@ export function sendEventProMailNotification(event) {
 
 export function sendEventSmsNotification(event) {
   const text = `[RTC ${event.module}] Evt: ${event.titre} le ${new Date(event.dateDebut).toLocaleDateString("fr-FR")} a ${new Date(event.dateDebut).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}. Info: synsr-rtc.vercel.app`;
-  openSmsComposer({ phone: "+237699000000", message: text });
+  openSmsComposer({ phone: "+237 6 99 00 00 00", message: text });
 }
 
 export const DEFAULT_TEST_RECIPIENTS = [

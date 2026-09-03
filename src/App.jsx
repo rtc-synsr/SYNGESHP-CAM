@@ -1,3 +1,4 @@
+import { formatCameroonPhone } from "./lib/phoneUtils";
 // Fallbacks globaux de sécurité contre toute ReferenceError
 const educationLevelActual = null;
 function notify(msg, type = "info") { try { if (typeof window !== "undefined") console.log(`[${type}] ${msg}`); } catch (e) {} }
@@ -109,7 +110,7 @@ const seedAgences = [
 // accidents, des agences, des voyages et du tableau de bord uniquement (voir palier dédié
 // "employe_mintrans", distinct du compte institutionnel "mintrans" à accès plus large).
 const seedEmployesMintrans = [
-  { id: "MTR-01", matricule: "00001", nom: "Nguemo Serge", dateDebut: "2025-02-01", dateFin: "", telephone: "6 71 30 22 15", statut: "Actif" },
+  { id: "MTR-01", matricule: "00001", nom: "Nguemo Serge", dateDebut: "2025-02-01", dateFin: "", telephone: "+237 6 71 30 22 15", statut: "Actif" },
   { id: "MTR-02", matricule: "00002", nom: "Abena Christelle", dateDebut: "2025-06-15", dateFin: "", telephone: "6 82 45 10 09", statut: "Actif" },
 ];
 
@@ -132,10 +133,10 @@ const seedChauffeursAgence = [
 ];
 
 const seedPassagers = [
-  { id: "PSG-2201", nom: "Ateba Jean", cni: "108245XXX", tel: "6 77 12 34 56", depart: "Douala", arrivee: "Yaoundé", agence: "Général Voyages", date: "2026-07-29", statut: "Terminé", villeResidence: "Douala", dateNaissance: "1990-03-14" },
+  { id: "PSG-2201", nom: "Ateba Jean", cni: "108245XXX", tel: "+237 6 77 12 34 56", depart: "Douala", arrivee: "Yaoundé", agence: "Général Voyages", date: "2026-07-29", statut: "Terminé", villeResidence: "Douala", dateNaissance: "1990-03-14" },
   { id: "PSG-2202", nom: "Nkeng Sonia", cni: "119302XXX", tel: "6 90 44 21 09", depart: "Yaoundé", arrivee: "Bafoussam", agence: "Touristique Express", statut: "En cours", date: "2026-07-31", villeResidence: "Yaoundé", dateNaissance: "1996-11-02" },
   { id: "PSG-2203", nom: "Bello Aïcha", cni: "125477XXX", tel: "6 55 87 60 12", depart: "Garoua", arrivee: "Douala", agence: "Vatican Voyages", statut: "En cours", date: "2026-07-31", villeResidence: "Garoua", dateNaissance: "1988-06-21" },
-  { id: "PSG-2204", nom: "Ngo Priscille", cni: "132560XXX", tel: "6 71 22 90 44", depart: "Douala", arrivee: "Yaoundé", agence: "Général Voyages", date: "2026-07-31", statut: "En cours", villeResidence: "Buea", dateNaissance: "1994-01-09" },
+  { id: "PSG-2204", nom: "Ngo Priscille", cni: "132560XXX", tel: "+237 6 71 22 90 44", depart: "Douala", arrivee: "Yaoundé", agence: "Général Voyages", date: "2026-07-31", statut: "En cours", villeResidence: "Buea", dateNaissance: "1994-01-09" },
   { id: "PSG-2205", nom: "Kamga Estelle", cni: "140987XXX", tel: "6 82 15 33 76", depart: "Douala", arrivee: "Yaoundé", agence: "Général Voyages", date: "2026-07-31", statut: "En cours", villeResidence: "Douala", dateNaissance: "1999-09-27" },
 ];
 
@@ -143,7 +144,7 @@ const seedPassagers = [
 // identité complète, contact, résidence et personne à contacter en cas d'urgence, saisis via USSD *1234#
 // (coût 100 FCFA), au même titre que pour les chauffeurs d'agence, les voyageurs et les auteurs de signalements.
 const seedVehicules = [
-  { id: "VP-041", conducteur: "Fotso Marcel", tel: "6 74 20 18 63", immat: "LT 1204 AB", type: "Berline", places: 4, depart: "Douala", arrivee: "Bafoussam", villeResidence: "Douala", quartier: "Bonabéri", contactUrgenceNom: "Fotso Elise", contactUrgenceTel: "6 74 20 18 90" },
+  { id: "VP-041", conducteur: "Fotso Marcel", tel: "+237 6 74 20 18 63", immat: "LT 1204 AB", type: "Berline", places: 4, depart: "Douala", arrivee: "Bafoussam", villeResidence: "Douala", quartier: "Bonabéri", contactUrgenceNom: "Fotso Elise", contactUrgenceTel: "6 74 20 18 90" },
   { id: "VP-042", conducteur: "Mbarga Rose", tel: "6 96 33 47 21", immat: "CE 5590 CD", type: "VUS", places: 5, depart: "Yaoundé", arrivee: "Buea", villeResidence: "Yaoundé", quartier: "Mvan", contactUrgenceNom: "Mbarga Jean-Paul", contactUrgenceTel: "6 96 33 47 55" },
 ];
 
@@ -445,7 +446,7 @@ const seedNotifications = [
   { id: "NTF-801", destinataire: "M. MBALLA Atangana", contact: "mballatanga@gmail.com", canal: "Gmail", type: "Confirmation", objet: "Confirmation de Réservation Express Douala→Yaoundé #PSG-8842", message: "Bonjour M. MBALLA Atangana,\n\nVotre voyage Douala ➔ Yaoundé est validé avec succès sur la plateforme SYNSR-CAM.\n\n🚌 Agence : Général Voyages VIP\n🎫 Siège réservé : N° 14B\n🕒 Départ : 07h30 (Gare de Bassa)\n🛡️ Suivi GPS & Sécurité : Activé en temps réel.\n\nMerci de voyager avec le Réseau de Transport Camerounais.", date: "Aujourd'hui 08:30", statut: "Envoyé (Gmail Automatisé)" },
   { id: "NTF-802", destinataire: "Mme BEDIGA Patricia", contact: "patriciabediga@gmail.com", canal: "Gmail", type: "Avis Scolaire", objet: "Disponibilité du Bulletin Trimestriel & Notification SYNGESE", message: "Chère Mme BEDIGA Patricia,\n\nNous vous informons que le bulletin d'évaluation de la 1ère séquence est désormais disponible en ligne sur SYNGESE-CAM.\n\n🏫 Établissement : Lycée Général Leclerc\n📊 Moyenne générale : 16.5 / 20 (Félicitations du Conseil)\n📅 Réunion parents-professeurs : Vendredi à 14h00.\n\nAccédez à votre espace parent sur : https://synsr-rtc.vercel.app", date: "Aujourd'hui 09:15", statut: "Envoyé (Gmail Automatisé)" },
   { id: "NTF-771", destinataire: "Ateba Jean", contact: "ateba.jean@gmail.com", canal: "Gmail", type: "Confirmation", objet: "Confirmation de votre voyage Douala→Yaoundé", message: "Votre voyage Douala→Yaoundé est confirmé pour le départ de 07h00. Référence passager : PSG-2201.", date: "29/07 06:52", statut: "Envoyé (Gmail)" },
-  { id: "NTF-772", destinataire: "Nkeng Sonia", contact: "+237699445566", canal: "SMS", type: "Rappel départ", objet: "Rappel départ bus Touristique Express", message: "Départ dans 30 min — Touristique Express, guichet 3. Merci de présenter votre pièce d'identité.", date: "31/07 08:45", statut: "Délivré (SMS)" },
+  { id: "NTF-772", destinataire: "Nkeng Sonia", contact: "+237 6 99 44 55 66", canal: "SMS", type: "Rappel départ", objet: "Rappel départ bus Touristique Express", message: "Départ dans 30 min — Touristique Express, guichet 3. Merci de présenter votre pièce d'identité.", date: "31/07 08:45", statut: "Délivré (SMS)" },
   { id: "NTF-773", destinataire: "DGSN Unité Cyber", contact: "cyber.alertes@dgsn.cm", canal: "Email Pro", type: "Urgence", objet: "Alerte accident corridor N3 PK 45", message: "Accident signalé — Axe Douala–Edéa. Intervention et patrouille de secours requises d'urgence.", date: "24/07 14:10", statut: "Transmis (Pro)" },
   { id: "NTF-774", destinataire: "Dr. Marc Eboumbou", contact: "dr.eboumbou@minsante.cm", canal: "Email Pro", type: "Alerte Médicale", objet: "Pré-alerte transfert accidentés CSU", message: "3 blessés évacués vers les urgences de l'Hôpital Général. Disponibilité du bloc demandée.", date: "02/08 11:20", statut: "Envoyé (Pro)" },
   { id: "NTF-775", destinataire: "Mme Bella Thérèse (Parent)", contact: "parent.bella@gmail.com", canal: "Gmail", type: "Avis Scolaire", objet: "Publication du bulletin trimestriel", message: "Le bulletin de notes de la première séquence est disponible en consultation sur SYNGESE.", date: "05/08 16:30", statut: "Envoyé (Gmail)" },
@@ -4740,9 +4741,9 @@ const NIVEAUX_CLASSE_SECONDAIRE = ["6e", "5e", "4e", "3e", "2nde", "1ère", "Ter
 const ANNEE_SCOLAIRE_COURANTE = "2026-2027";
 
 const seedEnseignantsSyngese = [
-  { id: "ENS-0001", matricule: "ENS-00001", etablissement: "École Publique Bilingue de Bonanjo", nom: "Ateba", prenom: "Marceline", sexe: "F", dateNaissance: "1988-04-12", telephone: "6 71 22 30 15", statut: "Fonctionnaire", specialite: "Polyvalent (primaire)", dateRecrutement: "2015-09-01" },
-  { id: "ENS-0002", matricule: "ENS-00002", etablissement: "Lycée Bilingue de Yaoundé", nom: "Ndjock", prenom: "Bertrand", sexe: "M", dateNaissance: "1979-11-03", telephone: "6 90 15 44 22", statut: "Fonctionnaire", specialite: "Mathématiques", dateRecrutement: "2008-09-01" },
-  { id: "ENS-0003", matricule: "ENS-00003", etablissement: "Lycée Bilingue de Yaoundé", nom: "Essomba", prenom: "Christelle", sexe: "F", dateNaissance: "1990-02-20", telephone: "6 55 66 77 88", statut: "Contractuel", specialite: "Anglais", dateRecrutement: "2019-09-01" },
+  { id: "ENS-0001", matricule: "ENS-00001", etablissement: "École Publique Bilingue de Bonanjo", nom: "Ateba", prenom: "Marceline", sexe: "F", dateNaissance: "1988-04-12", telephone: "+237 6 71 22 30 15", statut: "Fonctionnaire", specialite: "Polyvalent (primaire)", dateRecrutement: "2015-09-01" },
+  { id: "ENS-0002", matricule: "ENS-00002", etablissement: "Lycée Bilingue de Yaoundé", nom: "Ndjock", prenom: "Bertrand", sexe: "M", dateNaissance: "1979-11-03", telephone: "+237 6 90 15 44 22", statut: "Fonctionnaire", specialite: "Mathématiques", dateRecrutement: "2008-09-01" },
+  { id: "ENS-0003", matricule: "ENS-00003", etablissement: "Lycée Bilingue de Yaoundé", nom: "Essomba", prenom: "Christelle", sexe: "F", dateNaissance: "1990-02-20", telephone: "+237 6 55 66 77 88", statut: "Contractuel", specialite: "Anglais", dateRecrutement: "2019-09-01" },
 ];
 
 const seedClassesSyngese = [
@@ -4751,9 +4752,9 @@ const seedClassesSyngese = [
 ];
 
 const seedElevesSyngese = [
-  { id: "ELV-0001", matricule: "ELV-00001", etablissement: "École Publique Bilingue de Bonanjo", classeId: "CLS-0001", nom: "Mballa", prenom: "Junior", sexe: "M", dateNaissance: "2015-03-14", lieuNaissance: "Douala", statut: "Actif", nomParent: "Mballa Georges", telephoneParent: "6 77 88 99 00", relationParent: "Père", dateInscription: "2026-09-02" },
-  { id: "ELV-0002", matricule: "ELV-00002", etablissement: "École Publique Bilingue de Bonanjo", classeId: "CLS-0001", nom: "Nkeng", prenom: "Grace", sexe: "F", dateNaissance: "2015-07-02", lieuNaissance: "Douala", statut: "Actif", nomParent: "Nkeng Sonia", telephoneParent: "6 55 22 11 00", relationParent: "Mère", dateInscription: "2020-09-01" },
-  { id: "ELV-0003", matricule: "ELV-00003", etablissement: "Lycée Bilingue de Yaoundé", classeId: "CLS-0002", nom: "Fouda", prenom: "Aristide", sexe: "M", dateNaissance: "2011-01-09", lieuNaissance: "Yaoundé", statut: "Actif", nomParent: "Fouda Paul", telephoneParent: "6 90 44 55 66", relationParent: "Père", dateInscription: "2021-09-01" },
+  { id: "ELV-0001", matricule: "ELV-00001", etablissement: "École Publique Bilingue de Bonanjo", classeId: "CLS-0001", nom: "Mballa", prenom: "Junior", sexe: "M", dateNaissance: "2015-03-14", lieuNaissance: "Douala", statut: "Actif", nomParent: "Mballa Georges", telephoneParent: "+237 6 77 88 99 00", relationParent: "Père", dateInscription: "2026-09-02" },
+  { id: "ELV-0002", matricule: "ELV-00002", etablissement: "École Publique Bilingue de Bonanjo", classeId: "CLS-0001", nom: "Nkeng", prenom: "Grace", sexe: "F", dateNaissance: "2015-07-02", lieuNaissance: "Douala", statut: "Actif", nomParent: "Nkeng Sonia", telephoneParent: "+237 6 55 22 11 00", relationParent: "Mère", dateInscription: "2020-09-01" },
+  { id: "ELV-0003", matricule: "ELV-00003", etablissement: "Lycée Bilingue de Yaoundé", classeId: "CLS-0002", nom: "Fouda", prenom: "Aristide", sexe: "M", dateNaissance: "2011-01-09", lieuNaissance: "Yaoundé", statut: "Actif", nomParent: "Fouda Paul", telephoneParent: "+237 6 90 44 55 66", relationParent: "Père", dateInscription: "2021-09-01" },
 ];
 
 // Motifs et modes de paiement — conformes au cahier des charges, section 5.4.
@@ -7292,9 +7293,9 @@ function SyngeseCamApp({ onExit, onLock, onLogout, adminNom, syngeseActif, sessi
    adapté (Cameroon anglophone education sub-system).
    ================================================================== */
 const seedSchoolsCamSms = [
-  { id: "SCH-0001", name: "Government Bilingual Primary School Buea Town", code: "GBPS-BUEA-001", level: "Primary", category: "Government", region: "Sud-Ouest", division: "Fako", subdivision: "Buea", town: "Buea", headTeacher: "Ashu Rebecca", headTeacherSignature: "", logo: "", phone: "6 78 12 34 56", email: "gbps.buea@education.cm", nbClassrooms: 10, hasNursery: true, hasPrimary: true, hasLowerSecondary: false, hasUpperSecondary: false, validationStatus: "Validated" },
-  { id: "SCH-0002", name: "Government Bilingual High School Bamenda", code: "GBHS-BDA-002", level: "Secondary", category: "Government", region: "Nord-Ouest", division: "Mezam", subdivision: "Bamenda I", town: "Bamenda", headTeacher: "Fru Emmanuel", headTeacherSignature: "", logo: "", phone: "6 71 22 33 44", email: "gbhs.bamenda@education.cm", nbClassrooms: 24, hasNursery: false, hasPrimary: false, hasLowerSecondary: true, hasUpperSecondary: true, validationStatus: "Validated" },
-  { id: "SCH-0003", name: "Presbyterian Nursery & Primary School Kumba", code: "PNPS-KMB-003", level: "Primary", category: "Mission", region: "Sud-Ouest", division: "Meme", subdivision: "Kumba I", town: "Kumba", headTeacher: "Enow Comfort", headTeacherSignature: "", logo: "", phone: "6 94 55 66 77", email: "pnps.kumba@presbyterian.cm", nbClassrooms: 8, hasNursery: true, hasPrimary: true, hasLowerSecondary: false, hasUpperSecondary: false, validationStatus: "Pending" },
+  { id: "SCH-0001", name: "Government Bilingual Primary School Buea Town", code: "GBPS-BUEA-001", level: "Primary", category: "Government", region: "Sud-Ouest", division: "Fako", subdivision: "Buea", town: "Buea", headTeacher: "Ashu Rebecca", headTeacherSignature: "", logo: "", phone: "+237 6 78 12 34 56", email: "gbps.buea@education.cm", nbClassrooms: 10, hasNursery: true, hasPrimary: true, hasLowerSecondary: false, hasUpperSecondary: false, validationStatus: "Validated" },
+  { id: "SCH-0002", name: "Government Bilingual High School Bamenda", code: "GBHS-BDA-002", level: "Secondary", category: "Government", region: "Nord-Ouest", division: "Mezam", subdivision: "Bamenda I", town: "Bamenda", headTeacher: "Fru Emmanuel", headTeacherSignature: "", logo: "", phone: "+237 6 71 22 33 44", email: "gbhs.bamenda@education.cm", nbClassrooms: 24, hasNursery: false, hasPrimary: false, hasLowerSecondary: true, hasUpperSecondary: true, validationStatus: "Validated" },
+  { id: "SCH-0003", name: "Presbyterian Nursery & Primary School Kumba", code: "PNPS-KMB-003", level: "Primary", category: "Mission", region: "Sud-Ouest", division: "Meme", subdivision: "Kumba I", town: "Kumba", headTeacher: "Enow Comfort", headTeacherSignature: "", logo: "", phone: "+237 6 94 55 66 77", email: "pnps.kumba@presbyterian.cm", nbClassrooms: 8, hasNursery: true, hasPrimary: true, hasLowerSecondary: false, hasUpperSecondary: false, validationStatus: "Pending" },
 ];
 
 // Niveaux — deux nomenclatures possibles pour le primaire (« Primary 1–6 » ou « Class 1–6 »),
@@ -7314,9 +7315,9 @@ const ACADEMIC_YEAR_CURRENT = "2026/2027";
 const TERMS_CAM_SMS = ["First Term", "Second Term", "Third Term"];
 
 const seedTeachersCamSms = [
-  { id: "TCH-0001", matricule: "TCH-00001", school: "Government Bilingual Primary School Buea Town", firstName: "Rebecca", lastName: "Ashu", gender: "F", phone: "6 78 12 34 56", specialty: "General Class Teacher", status: "Active", dateOfRecruitment: "2018-09-01" },
-  { id: "TCH-0002", matricule: "TCH-00002", school: "Government Bilingual High School Bamenda", firstName: "Emmanuel", lastName: "Fru", gender: "M", phone: "6 71 22 33 44", specialty: "Mathematics", status: "Active", dateOfRecruitment: "2015-09-01" },
-  { id: "TCH-0003", matricule: "TCH-00003", school: "Government Bilingual High School Bamenda", firstName: "Grace", lastName: "Tabe", gender: "F", phone: "6 90 88 77 66", specialty: "English Language", status: "Active", dateOfRecruitment: "2020-09-01" },
+  { id: "TCH-0001", matricule: "TCH-00001", school: "Government Bilingual Primary School Buea Town", firstName: "Rebecca", lastName: "Ashu", gender: "F", phone: "+237 6 78 12 34 56", specialty: "General Class Teacher", status: "Active", dateOfRecruitment: "2018-09-01" },
+  { id: "TCH-0002", matricule: "TCH-00002", school: "Government Bilingual High School Bamenda", firstName: "Emmanuel", lastName: "Fru", gender: "M", phone: "+237 6 71 22 33 44", specialty: "Mathematics", status: "Active", dateOfRecruitment: "2015-09-01" },
+  { id: "TCH-0003", matricule: "TCH-00003", school: "Government Bilingual High School Bamenda", firstName: "Grace", lastName: "Tabe", gender: "F", phone: "+237 6 90 88 77 66", specialty: "English Language", status: "Active", dateOfRecruitment: "2020-09-01" },
 ];
 
 const seedClassesCamSms = [
@@ -7328,8 +7329,8 @@ const seedClassesCamSms = [
 // recommandation du cahier des charges adapté (section 8.1), pour éviter de dupliquer les
 // informations personnelles entre les deux paliers.
 const seedLearnersCamSms = [
-  { id: "LRN-0001", admissionNumber: "GBPS-2026-0001", school: "Government Bilingual Primary School Buea Town", classId: "CLS-0001", classe: "Class 4 A", className: "Class 4 A", level: "Primary 4", name: "Divine Ojong", learnerType: "PUPIL", firstName: "Divine", middleName: "", lastName: "Ojong", gender: "M", dateOfBirth: "2016-04-12", placeOfBirth: "Buea", status: "Active", guardianName: "Ojong Peter", guardianRelationship: "Father", guardianPhone: "6 77 11 22 33", guardianEmail: "", enrollmentDate: "2026-09-02" },
-  { id: "LRN-0002", admissionNumber: "GBHS-2026-0001", school: "Government Bilingual High School Bamenda", classId: "CLS-0002", learnerType: "STUDENT", firstName: "Larissa", middleName: "N.", lastName: "Ndifor", gender: "F", dateOfBirth: "2011-08-03", placeOfBirth: "Bamenda", status: "Active", guardianName: "Ndifor Mercy", guardianRelationship: "Mother", guardianPhone: "6 55 33 22 11", guardianEmail: "mercy.ndifor@test.cm", enrollmentDate: "2020-09-01" },
+  { id: "LRN-0001", admissionNumber: "GBPS-2026-0001", school: "Government Bilingual Primary School Buea Town", classId: "CLS-0001", classe: "Class 4 A", className: "Class 4 A", level: "Primary 4", name: "Divine Ojong", learnerType: "PUPIL", firstName: "Divine", middleName: "", lastName: "Ojong", gender: "M", dateOfBirth: "2016-04-12", placeOfBirth: "Buea", status: "Active", guardianName: "Ojong Peter", guardianRelationship: "Father", guardianPhone: "+237 6 77 11 22 33", guardianEmail: "", enrollmentDate: "2026-09-02" },
+  { id: "LRN-0002", admissionNumber: "GBHS-2026-0001", school: "Government Bilingual High School Bamenda", classId: "CLS-0002", learnerType: "STUDENT", firstName: "Larissa", middleName: "N.", lastName: "Ndifor", gender: "F", dateOfBirth: "2011-08-03", placeOfBirth: "Bamenda", status: "Active", guardianName: "Ndifor Mercy", guardianRelationship: "Mother", guardianPhone: "+237 6 55 33 22 11", guardianEmail: "mercy.ndifor@test.cm", enrollmentDate: "2020-09-01" },
 ];
 
 // Subjects — sections 3.3 (Primary) et 4.4 (Secondary) du cahier des charges adapté.
@@ -13618,7 +13619,7 @@ export default function SSRNPlatform() {
                           onClick={(e) => {
                             e.stopPropagation();
                             openSmsComposer({
-                              phone: r.contact || "+237699000000",
+                              phone: r.contact || "+237 6 99 00 00 00",
                               message: `[SYNSR-RTC] ${r.message}`,
                             });
                           }}
@@ -15076,7 +15077,7 @@ export default function SSRNPlatform() {
                   type="button"
                   onClick={() => {
                     openSmsComposer({
-                      phone: formNotification.contact || "+237699000000",
+                      phone: formNotification.contact || "+237 6 99 00 00 00",
                       message: formNotification.message,
                     });
                   }}

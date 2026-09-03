@@ -1,3 +1,4 @@
+import { formatCameroonPhone } from "../lib/phoneUtils";
 import React, { useState, useMemo } from "react";
 import {
   GraduationCap, BookOpen, Calendar, Clock, CheckCircle2, AlertTriangle,
@@ -176,7 +177,7 @@ export default function EEcolePortal({
   const [paiementMontant, setPaiementMontant] = useState(isPrimaire ? 15000 : 25000);
   const [paiementMotif, setPaiementMotif] = useState(isPrimaire ? "Frais APEE & Livrets scolaires" : "Frais de scolarité - Tranche 2");
   const [paiementOperateur, setPaiementOperateur] = useState("Orange Money");
-  const [paiementTelephone, setPaiementTelephone] = useState("699001122");
+  const [paiementTelephone, setPaiementTelephone] = useState("+237 6 99 00 11 22");
 
   // Programme et matières strictement adaptés selon le niveau (Primaire vs Secondaire) et le trimestre sélectionné
   const donneesAcademiques = useMemo(() => {

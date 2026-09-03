@@ -1,3 +1,4 @@
+import { formatCameroonPhone, CAMEROON_PHONE_PLACEHOLDER } from "../lib/phoneUtils";
 import React, { useState, useMemo, useEffect } from "react";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
@@ -1214,14 +1215,14 @@ export default function SyndecCamApp({
 
   // Table des Utilisateurs SYNDEC-CAM
   const [utilisateurs, setUtilisateurs] = useState([
-    { id: "USR-001", nom: "Patrick MBALLA", profil: "Administrateur système", contact: "699001122", email: "patrick.mballa@rtc.cm", commune: "Commune De Yaounde I", actif: true, dateCreation: "2026-01-10" },
-    { id: "USR-002", nom: "Paul Ekwalla", profil: "Usager / Déclarant", contact: "677112233", email: "paul.ekwalla@gmail.com", commune: "Commune D'Arrondissement De Douala 3eme", actif: true, dateCreation: "2026-02-14" },
-    { id: "USR-003", nom: "Marcel Fotso", profil: "Usager / Déclarant", contact: "690445566", email: "marcel.fotso@yahoo.fr", commune: "Commune D'Arrondissement De Bafoussam 1er", actif: true, dateCreation: "2026-03-01" },
-    { id: "USR-004", nom: "Sonia Nkeng", profil: "Usager / Déclarant", contact: "677998877", email: "sonia.nkeng@gmail.com", commune: "Commune D'Arrondissement De Bamenda 2e", actif: true, dateCreation: "2026-03-15" },
-    { id: "USR-005", nom: "Ateba Suzanne", profil: "Officier d'état civil", contact: "699223344", email: "ateba.suzanne@yaounde1.cm", commune: "Commune De Yaounde I", actif: true, dateCreation: "2026-01-15" },
-    { id: "USR-006", nom: "Mengue François", profil: "Maire", contact: "699445566", email: "maire@obala.cm", commune: "Commune D'Obala", actif: true, dateCreation: "2026-01-20" },
-    { id: "USR-007", nom: "Inspecteur BUNEC Centre", profil: "BUNEC (Supervision)", contact: "677002244", email: "supervision@bunec.cm", commune: "Commune De Yaounde I", actif: true, dateCreation: "2026-01-05" },
-    { id: "USR-008", nom: "Délégué Régional MINAT", profil: "MINAT / Tutelle", contact: "690112233", email: "tutelle@minat.gov.cm", commune: "Commune De Yaounde I", actif: true, dateCreation: "2026-01-08" },
+    { id: "USR-001", nom: "Patrick MBALLA", profil: "Administrateur système", contact: "+237 6 99 00 11 22", email: "patrick.mballa@rtc.cm", commune: "Commune De Yaounde I", actif: true, dateCreation: "2026-01-10" },
+    { id: "USR-002", nom: "Paul Ekwalla", profil: "Usager / Déclarant", contact: "+237 6 77 11 22 33", email: "paul.ekwalla@gmail.com", commune: "Commune D'Arrondissement De Douala 3eme", actif: true, dateCreation: "2026-02-14" },
+    { id: "USR-003", nom: "Marcel Fotso", profil: "Usager / Déclarant", contact: "+237 6 90 44 55 66", email: "marcel.fotso@yahoo.fr", commune: "Commune D'Arrondissement De Bafoussam 1er", actif: true, dateCreation: "2026-03-01" },
+    { id: "USR-004", nom: "Sonia Nkeng", profil: "Usager / Déclarant", contact: "+237 6 77 99 88 77", email: "sonia.nkeng@gmail.com", commune: "Commune D'Arrondissement De Bamenda 2e", actif: true, dateCreation: "2026-03-15" },
+    { id: "USR-005", nom: "Ateba Suzanne", profil: "Officier d'état civil", contact: "+237 6 99 22 33 44", email: "ateba.suzanne@yaounde1.cm", commune: "Commune De Yaounde I", actif: true, dateCreation: "2026-01-15" },
+    { id: "USR-006", nom: "Mengue François", profil: "Maire", contact: "+237 6 99 44 55 66", email: "maire@obala.cm", commune: "Commune D'Obala", actif: true, dateCreation: "2026-01-20" },
+    { id: "USR-007", nom: "Inspecteur BUNEC Centre", profil: "BUNEC (Supervision)", contact: "+237 6 77 00 22 44", email: "supervision@bunec.cm", commune: "Commune De Yaounde I", actif: true, dateCreation: "2026-01-05" },
+    { id: "USR-008", nom: "Délégué Régional MINAT", profil: "MINAT / Tutelle", contact: "+237 6 90 11 22 33", email: "tutelle@minat.gov.cm", commune: "Commune De Yaounde I", actif: true, dateCreation: "2026-01-08" },
   ]);
 
   // Journal d'Audit Système
@@ -1459,7 +1460,7 @@ export default function SyndecCamApp({
   const emptyFormUtilisateur = {
     nom: "",
     profil: "Usager / Déclarant",
-    contact: "699000000",
+    contact: "+237 6 99 00 00 00",
     email: "",
     region: "Centre",
     departement: "Mfoundi",
@@ -1471,7 +1472,7 @@ export default function SyndecCamApp({
 
   const [paiementForm, setPaiementForm] = useState({
     operateur: "Orange Money",
-    numeroTelephone: "699001122",
+    numeroTelephone: "+237 6 99 00 11 22",
     enCours: false,
   });
 
@@ -2904,7 +2905,7 @@ export default function SyndecCamApp({
                             {u.profil}
                           </span>
                         </td>
-                        <td className="py-3 px-4 font-mono text-gray-300">{u.contact || "—"}</td>
+                        <td className="py-3 px-4 font-mono text-gray-300">{formatCameroonPhone(u.contact) || "—"}</td>
                         <td className="py-3 px-4 font-mono text-teal-300/90 lowercase">{u.email || "—"}</td>
                         <td className="py-3 px-4 text-gray-200">{u.commune}</td>
                         <td className="py-3 px-4 text-center">
@@ -3863,10 +3864,11 @@ export default function SyndecCamApp({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-[#8FA8B0] mb-1">Numéro Téléphone (SMS / MoMo) * :</label>
+                  <label className="block text-[#8FA8B0] mb-1">Numéro Téléphone (Format : +237 6 XX XX XX XX) * :</label>
                   <input
                     type="text"
                     required
+                    placeholder="+237 6 99 00 11 22"
                     value={formUtilisateur.contact}
                     onChange={(e) => setFormUtilisateur({ ...formUtilisateur, contact: e.target.value })}
                     className="w-full bg-[#1A2C3C] text-xs text-white p-2 rounded-lg border border-white/10 font-mono"

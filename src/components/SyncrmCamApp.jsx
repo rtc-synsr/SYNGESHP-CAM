@@ -1,3 +1,4 @@
+import { formatCameroonPhone } from "../lib/phoneUtils";
 import React, { useState, useMemo, useEffect } from "react";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
@@ -174,7 +175,7 @@ export default function SyncrmCamApp({
       numero: "TIC-2026-0041",
       titre: "Billet SMS non reçu après paiement USSD (*1234#)",
       contact_nom: "Suzanne Charlotte Eboa",
-      contact_tel: "+237 655 44 33 22",
+      contact_tel: "+237 6 55 44 33 22",
       compte_nom: "Voyageur Régulier / Particulier",
       type: "Assistance Billetterie",
       priorite: "Haute",
@@ -186,7 +187,7 @@ export default function SyncrmCamApp({
       numero: "TIC-2026-0042",
       titre: "Demande de recalibrage de boîtier GPS Bus N° 14 — Buca Voyages",
       contact_nom: "Serge Belinga",
-      contact_tel: "+237 699 11 22 34",
+      contact_tel: "+237 6 99 11 22 34",
       compte_nom: "Buca Voyages Littoral",
       type: "Maintenance Matériel",
       priorite: "Moyenne",
@@ -245,7 +246,7 @@ export default function SyncrmCamApp({
       nom_candidat: "Kevin TAGNE",
       poste_titre: "Développeur Full-Stack React / Supabase",
       email: "kevin.tagne@gmail.com",
-      telephone: "+237 671 22 33 44",
+      telephone: "+237 6 71 22 33 44",
       etape: "Entretien2",
       evaluation: 4,
       salaire_souhaite: 600000,
@@ -257,7 +258,7 @@ export default function SyncrmCamApp({
       nom_candidat: "Laure ATANGANA",
       poste_titre: "Chargé de Recrutement & Formation RH",
       email: "laure.atangana@yahoo.fr",
-      telephone: "+237 699 44 55 66",
+      telephone: "+237 6 99 44 55 66",
       etape: "Proposition",
       evaluation: 5,
       salaire_souhaite: 550000,
@@ -269,7 +270,7 @@ export default function SyncrmCamApp({
       nom_candidat: "Bertrand NZEUKOU",
       poste_titre: "Opérateur Régulateur SOS & Trafic 24/7",
       email: "b.nzeukou@gmail.com",
-      telephone: "+237 655 77 88 99",
+      telephone: "+237 6 55 77 88 99",
       etape: "Entretien1",
       evaluation: 3,
       salaire_souhaite: 350000,
@@ -900,7 +901,7 @@ export default function SyncrmCamApp({
       numero: `TCK-${new Date().getFullYear()}-${String(tickets.length + 1).padStart(3, "0")}`,
       titre: formTicket.titre,
       contact_nom: formTicket.contact_nom || "Demandeur",
-      contact_tel: formTicket.contact_tel || "690000000",
+      contact_tel: formTicket.contact_tel || "+237 6 90 00 00 00",
       compte_nom: formTicket.compte_nom || "Voyageur Régulier",
       type: formTicket.type || "Assistance Billetterie",
       priorite: formTicket.priorite || "Normale",
