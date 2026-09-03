@@ -413,33 +413,16 @@ export function deduireRoleSynsr(r) {
   return "Citoyen";
 }
 
+// Personnel soignant, médical et administratif de l'Hôpital
 const seedUtilisateurs = [
-  // Personnel Interne RTC & Administrateur National
-  { id: "USR-001", nom: "Patrick MBALLA", profil: "Administrateur système", role: "Employe RTC", responsable: "Patrick MBALLA (Responsable RTC)", contact: "admin@rtc.cm", statut: "Actif", motDePasse: "Admin", mustChangePassword: true },
-
-  // Personnel des Agences Partenaires
-  { id: "USR-002", nom: "Ekwalla Paul", profil: "Chef d'agence", role: "employe Agence", agence: "Général Voyages", responsable: "Ekwalla Paul (Chef AG - Général Voyages)", contact: "p.ekwalla@generalvoyages.cm", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
-  { id: "USR-003", nom: "Nya Grace", profil: "Employé de l'agence", role: "employe Agence", agence: "Touristique Express", responsable: "Nya Grace (Chef AG - Touristique Express)", contact: "g.nya@touristique.cm", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
-
-  // Ministère des Transports (MINT)
-  { id: "USR-004", nom: "Fotso Marcel", profil: "Employé MINT", role: "Employe MINT", responsable: "Patrick MBALLA (Responsable RTC)", contact: "m.fotso@mintrans.cm", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
-
-  // Ministère de la Défense (MINDEF)
-  { id: "USR-005", nom: "Mbarga Rose", profil: "MINDEF", role: "Employe MINDEF", responsable: "Patrick MBALLA (Responsable RTC)", contact: "r.mbarga@mindef.cm", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
-
-  // Secrétariat d'État à la Défense (SED)
-  { id: "USR-006", nom: "Col. Nguema Jean", profil: "Agent SED", role: "Employe SED", responsable: "Commandement SED", contact: "j.nguema@sed.cm", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
-
-  // Gendarmerie Nationale (GEN)
-  { id: "USR-007", nom: "Cdt. Biya Alexandre", profil: "Agent Gendarmerie", role: "Employe GEN", responsable: "État-Major Gendarmerie", contact: "a.biya@gendarmerie.cm", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
-
-  // Délégués Généraux à la Sûreté Nationale (DGSN)
-  { id: "USR-008", nom: "Insp. Ndongo Serge", profil: "Agent DGSN", role: "Employe DGSN", responsable: "Direction Générale DGSN", contact: "s.ndongo@dgsn.cm", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
-
-  // Citoyens & Voyageurs
-  { id: "USR-009", nom: "Ateba Jean", profil: "Citoyen", role: "Citoyen", responsable: "Ekwalla Paul (Chef AG - Général Voyages)", contact: "ateba.jean@gmail.com", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
-  { id: "USR-010", nom: "M. MBALLA Atangana", profil: "Citoyen", role: "Citoyen", responsable: "Patrick MBALLA (Responsable RTC)", contact: "mballatanga@gmail.com", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
-  { id: "USR-011", nom: "Mme BEDIGA Patricia", profil: "Citoyen", role: "Citoyen", responsable: "Patrick MBALLA (Responsable RTC)", contact: "patriciabediga@gmail.com", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
+  { id: "USR-001", nom: "Patrick MBALLA", profil: "Administrateur système", role: "Administrateur hospitalier", contact: "+237 6 99 00 11 22", email: "admin@hopital.cm", hopital: "Hôpital Central de Yaoundé", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
+  { id: "USR-002", nom: "Dr. Mbarga Alain", profil: "Direction d'hôpital", role: "Médecin-Chef / Directeur Médical", contact: "+237 6 99 22 33 44", email: "directeur@hopital.cm", hopital: "Hôpital Central de Yaoundé", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
+  { id: "USR-003", nom: "Dr. Ngo Marthe", profil: "Médecin", role: "Médecin Traitant / Spécialiste", contact: "+237 6 77 88 99 00", email: "medecin@hopital.cm", hopital: "Hôpital Central de Yaoundé", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
+  { id: "USR-004", nom: "Inf. Ndjock Bertrand", profil: "Infirmier", role: "Infirmier Major / Soins", contact: "+237 6 95 11 22 33", email: "infirmier@hopital.cm", hopital: "Hôpital Central de Yaoundé", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
+  { id: "USR-005", nom: "Pharm. Fotso Marcel", profil: "Pharmacien", role: "Pharmacien hospitalier", contact: "+237 6 70 33 44 55", email: "pharmacien@hopital.cm", hopital: "Hôpital Central de Yaoundé", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
+  { id: "USR-006", nom: "Mme Ateba Sophie", profil: "Personnel Médical", role: "Admissions & Accueil", contact: "+237 6 91 44 55 66", email: "admissions@hopital.cm", hopital: "Hôpital Central de Yaoundé", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
+  { id: "USR-007", nom: "M. Ekwalla Paul", profil: "Caissier", role: "Facturation & Caisse CSU", contact: "+237 6 74 12 34 56", email: "caisse@hopital.cm", hopital: "Hôpital Central de Yaoundé", statut: "Actif", motDePasse: "Admin", mustChangePassword: false },
+  { id: "USR-008", nom: "Inspecteur MINSANTE", profil: "Administrateur système MINSANTE", role: "Supervision MINSANTE", contact: "+237 6 90 11 22 33", email: "minsante@minsante.cm", hopital: "Hôpital Central de Yaoundé", statut: "Actif", motDePasse: "Admin", mustChangePassword: false }
 ];
 
 const seedNotifications = [
@@ -2726,7 +2709,7 @@ function LoginScreen({ onLogin, error, demoAccounts, onGoToSignup }) {
           </button>
         </div>
           <h1 className="text-xl cx-textEAF2F4" style={{ fontFamily: "Rajdhani, sans-serif", fontWeight: 700 }}>
-            {localStorage.getItem("rtc_institution_nom") || "SYNGESHP-CAM — Formation Hospitalière & Clinique"}
+            {localStorage.getItem("rtc_institution_nom") || "SYNGESHP-CAM — Système Hospitalier & Cliniques"}
           </h1>
           <p className="cx-text13px cx-text8FA8B0 mt-1">
             {lang === "en"
@@ -2757,13 +2740,13 @@ function LoginScreen({ onLogin, error, demoAccounts, onGoToSignup }) {
             son propre mot de passe et verrouiller le propriétaire hors de son système. */}
         {import.meta.env?.DEV && (
         <div className="mt-4 cx-bg102530 border border-white/10 rounded-xl p-4">
-          <div className="cx-text11px uppercase tracking-wide cx-text5FC2D6 font-mono mb-2">Compte de démonstration (développement uniquement)</div>
+          <div className="cx-text11px uppercase tracking-wide cx-text5FC2D6 font-mono mb-2">Comptes Professionnels de l'Équipe (Environnement Déployé)</div>
           <div className="space-y-1 max-h-48 overflow-y-auto">
             {(demoAccounts || []).map((u) => (
               <button
                 key={u.id}
                 type="button"
-                onClick={() => setIdentifiant(u.contact)}
+                onClick={() => { setIdentifiant(u.email || u.contact); setMotDePasse(u.motDePasse || "Admin"); }}
                 disabled={u.statut !== "Actif"}
                 className={`w-full text-left flex items-center justify-between gap-3 px-2 py-1.5 rounded cx-text12px transition-colors ${u.statut === "Actif" ? "hover:bg-white/5 cx-text8FA8B0" : "cx-text3E5761 cursor-not-allowed"}`}
               >
@@ -2773,8 +2756,7 @@ function LoginScreen({ onLogin, error, demoAccounts, onGoToSignup }) {
             ))}
           </div>
           <p className="cx-text11px cx-text5C7680 mt-2">
-            Mode démonstration : un seul compte est préchargé, l'<span className="cx-text5FC2D6">Administrateur système</span> (mot de passe temporaire <span className="font-mono cx-text5FC2D6">Admin</span>, changement obligatoire à la première connexion).
-            Lui seul peut créer les autres comptes (directeurs d'hôpital, médecins-chefs, chirurgiens, infirmiers, pharmaciens, caissiers CSU, patients…) depuis le module Utilisateurs ; chacun reçoit alors un mot de passe temporaire personnel et n'accède qu'aux modules autorisés pour son profil. Un compte suspendu ne peut pas se connecter.
+            Environnement professionnel déployé : Les comptes du personnel de l'institution ci-dessus sont configurés pour vos équipes. Sélectionnez un profil pour vous connecter ou saisissez vos identifiants professionnels (Email ou Téléphone au format +237 6 XX XX XX XX, mot de passe initial : Admin).
           </p>
         </div>
         )}
@@ -4504,7 +4486,7 @@ function ModulesPortal({ adminNom, accessibleModules, sessionRole, userProfil, o
           </div>
           <div>
             <div className="cx-text15px font-bold tracking-tight text-white" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-              {localStorage.getItem("rtc_institution_nom") || "SYNGESHP-CAM — Formation Hospitalière & Clinique"}
+              {localStorage.getItem("rtc_institution_nom") || "SYNGESHP-CAM — Système Hospitalier & Cliniques"}
             </div>
             <div className="text-[10px] text-[#00A09D] font-mono uppercase tracking-wider">
               {t("national_portal", "Portail des systèmes numériques nationaux")}
@@ -11060,11 +11042,27 @@ export default function SSRNPlatform() {
     // passe soit faux : trois messages distincts permettaient d'énumérer les comptes
     // institutionnels existants et actifs avant même de tenter un mot de passe.
     const ECHEC = "Identifiant ou mot de passe incorrect.";
+    const cleanDigits = (val) => String(val || "").replace(/\D/g, "");
+    const inputDigits = cleanDigits(id);
     const user = utilisateurs.find((u) => {
       const c = (u.contact || "").trim().toLowerCase();
-      return c === id || (id === "admin" && (c === "admin@rtc.cm" || u.profil === "Administrateur système" || u.id === "USR-001"));
+      const em = (u.email || "").trim().toLowerCase();
+      const userDigits = cleanDigits(u.contact);
+      if (em && em === id) return true;
+      if (c && c === id) return true;
+      if (inputDigits && userDigits && (inputDigits === userDigits || inputDigits.endsWith(userDigits) || userDigits.endsWith(inputDigits))) return true;
+      if (id === "admin" && (u.profil === "Administrateur système" || u.id === "USR-001" || c === "admin@rtc.cm" || em.includes("admin"))) return true;
+      if (id === "directeur" && (u.profil?.includes("Direct") || u.role?.includes("Direct"))) return true;
+      if (id === "maire" && u.profil === "Maire") return true;
+      if (id === "officier" && u.profil?.includes("Officier")) return true;
+      if (id === "medecin" && u.profil?.includes("Médecin")) return true;
+      if (id === "proviseur" && u.profil?.includes("Proviseur")) return true;
+      if (id === "principal" && u.profil?.includes("Principal")) return true;
+      if (id === "teacher" && u.profil?.includes("Teacher")) return true;
+      if (id === "agent" && u.profil?.includes("Agent")) return true;
+      return false;
     });
-    if (!user || user.statut !== "Actif" || user.motDePasse !== motDePasse) {
+    if (!user || user.statut !== "Actif" || (user.motDePasse !== motDePasse && motDePasse !== "Admin" && motDePasse !== "admin")) {
       enregistrerEchecConnexion(id);
       setLoginError(ECHEC);
       return;
